@@ -1,0 +1,3479 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "SDL/libSDL3.so"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_options",
+			"sdl_shared_link_options",
+			"sdl_generic_link_dependency",
+			"sdl_link_dependency",
+			"CheckPTHREAD",
+			"target_link_libraries",
+			"target_compile_options",
+			"sdl_target_compile_option_all_languages",
+			"SDL_AddCommonCompilerFlags",
+			"sdl_compile_options",
+			"target_compile_definitions",
+			"sdl_compile_definitions",
+			"target_include_directories",
+			"sdl_include_directories",
+			"CheckKMSDRM",
+			"target_precompile_headers",
+			"target_sources",
+			"sdl_glob_sources",
+			"CheckALSA",
+			"CheckJACK",
+			"CheckPulseAudio",
+			"CheckSNDIO",
+			"CheckX11",
+			"sdl_sources",
+			"CheckHIDAPI"
+		],
+		"files" : 
+		[
+			"SDL/CMakeLists.txt",
+			"SDL/cmake/sdlcommands.cmake",
+			"SDL/cmake/sdlchecks.cmake",
+			"SDL/cmake/sdlcompilers.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 426,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 474,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 185,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 620,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 185,
+				"parent" : 4
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 1817,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 882,
+				"parent" : 6
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 75,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 50,
+				"parent" : 8
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 1042,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 75,
+				"parent" : 10
+			},
+			{
+				"command" : 6,
+				"file" : 1,
+				"line" : 49,
+				"parent" : 11
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 1205,
+				"parent" : 0
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 428,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 61,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 15
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 69,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 17
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 74,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 19
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 79,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 21
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 116,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 23
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 121,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 25
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 126,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 27
+			},
+			{
+				"command" : 8,
+				"file" : 3,
+				"line" : 159,
+				"parent" : 14
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 23,
+				"parent" : 29
+			},
+			{
+				"command" : 10,
+				"file" : 0,
+				"line" : 504,
+				"parent" : 0
+			},
+			{
+				"command" : 7,
+				"file" : 1,
+				"line" : 128,
+				"parent" : 31
+			},
+			{
+				"command" : 10,
+				"file" : 2,
+				"line" : 881,
+				"parent" : 6
+			},
+			{
+				"command" : 7,
+				"file" : 1,
+				"line" : 128,
+				"parent" : 33
+			},
+			{
+				"command" : 12,
+				"file" : 0,
+				"line" : 3499,
+				"parent" : 0
+			},
+			{
+				"command" : 11,
+				"file" : 1,
+				"line" : 109,
+				"parent" : 35
+			},
+			{
+				"command" : 12,
+				"file" : 0,
+				"line" : 495,
+				"parent" : 0
+			},
+			{
+				"command" : 11,
+				"file" : 1,
+				"line" : 109,
+				"parent" : 37
+			},
+			{
+				"command" : 14,
+				"file" : 0,
+				"line" : 496,
+				"parent" : 0
+			},
+			{
+				"command" : 13,
+				"file" : 1,
+				"line" : 157,
+				"parent" : 39
+			},
+			{
+				"command" : 13,
+				"file" : 0,
+				"line" : 3454,
+				"parent" : 0
+			},
+			{
+				"command" : 15,
+				"file" : 0,
+				"line" : 1589,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 2,
+				"line" : 1239,
+				"parent" : 42
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 75,
+				"parent" : 43
+			},
+			{
+				"command" : 13,
+				"file" : 1,
+				"line" : 48,
+				"parent" : 44
+			},
+			{
+				"command" : 14,
+				"file" : 0,
+				"line" : 1692,
+				"parent" : 0
+			},
+			{
+				"command" : 13,
+				"file" : 1,
+				"line" : 157,
+				"parent" : 46
+			},
+			{
+				"command" : 14,
+				"file" : 0,
+				"line" : 1704,
+				"parent" : 0
+			},
+			{
+				"command" : 13,
+				"file" : 1,
+				"line" : 157,
+				"parent" : 48
+			},
+			{
+				"command" : 16,
+				"file" : 0,
+				"line" : 3471,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1163,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 51
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1231,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 53
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1237,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 55
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1247,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 57
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1266,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 59
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1279,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 61
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1286,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 63
+			},
+			{
+				"command" : 19,
+				"file" : 0,
+				"line" : 1574,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 105,
+				"parent" : 65
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 66
+			},
+			{
+				"command" : 20,
+				"file" : 0,
+				"line" : 1575,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 218,
+				"parent" : 68
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 69
+			},
+			{
+				"command" : 21,
+				"file" : 0,
+				"line" : 1577,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 186,
+				"parent" : 71
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 72
+			},
+			{
+				"command" : 22,
+				"file" : 0,
+				"line" : 1578,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 250,
+				"parent" : 74
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 75
+			},
+			{
+				"command" : 23,
+				"file" : 0,
+				"line" : 1586,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 330,
+				"parent" : 77
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 78
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 1224,
+				"parent" : 42
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 80
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1599,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 82
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1604,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 84
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1653,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 86
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1662,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 88
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1736,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 90
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1744,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 92
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1748,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 94
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1752,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 96
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1756,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 98
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1760,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 100
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1792,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 102
+			},
+			{
+				"command" : 25,
+				"file" : 0,
+				"line" : 1801,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 1145,
+				"parent" : 104
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 105
+			},
+			{
+				"command" : 18,
+				"file" : 2,
+				"line" : 1146,
+				"parent" : 104
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 107
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1810,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 109
+			},
+			{
+				"command" : 24,
+				"file" : 2,
+				"line" : 940,
+				"parent" : 6
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 111
+			},
+			{
+				"command" : 24,
+				"file" : 2,
+				"line" : 948,
+				"parent" : 6
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 113
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1832,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 115
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1838,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 117
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1843,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 119
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1847,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 121
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1851,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 123
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1854,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 125
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 1859,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 127
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1863,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 129
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 1867,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 131
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 2936,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 133
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 2938,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 135
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 2943,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 137
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 2944,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 139
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 2945,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 141
+			},
+			{
+				"command" : 24,
+				"file" : 0,
+				"line" : 2959,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 23,
+				"parent" : 143
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 3002,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 145
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 3013,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 147
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 3019,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 149
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 3033,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 151
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 3069,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 153
+			},
+			{
+				"command" : 18,
+				"file" : 0,
+				"line" : 3128,
+				"parent" : 0
+			},
+			{
+				"command" : 17,
+				"file" : 1,
+				"line" : 11,
+				"parent" : 155
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fPIC -fvisibility=hidden -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 16,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 18,
+					"fragment" : "-Wundef"
+				},
+				{
+					"backtrace" : 20,
+					"fragment" : "-Wfloat-conversion"
+				},
+				{
+					"backtrace" : 22,
+					"fragment" : "-fno-strict-aliasing"
+				},
+				{
+					"backtrace" : 24,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 26,
+					"fragment" : "-Wno-unused-local-typedefs"
+				},
+				{
+					"backtrace" : 28,
+					"fragment" : "-Wimplicit-fallthrough"
+				},
+				{
+					"backtrace" : 30,
+					"fragment" : "-fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 32,
+					"fragment" : "-idirafter/home/userbrigh/CLionProjects/Szachy/SDL/src/video/khronos"
+				},
+				{
+					"backtrace" : 34,
+					"fragment" : "-D_REENTRANT"
+				},
+				{
+					"fragment" : "-Winvalid-pch -x c-header -include /home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "DLL_EXPORT"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MAJOR_VERSION=3"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MICRO_VERSION=0"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MINOR_VERSION=3"
+				},
+				{
+					"backtrace" : 38,
+					"define" : "USING_GENERATED_CONFIG_H"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/include-config-debug/build_config"
+				},
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/include-revision"
+				},
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/SDL/include"
+				},
+				{
+					"backtrace" : 41,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/SDL/src"
+				},
+				{
+					"backtrace" : 45,
+					"isSystem" : true,
+					"path" : "/usr/include/libdrm"
+				},
+				{
+					"backtrace" : 47,
+					"isSystem" : true,
+					"path" : "/usr/include/dbus-1.0"
+				},
+				{
+					"backtrace" : 47,
+					"isSystem" : true,
+					"path" : "/usr/lib/x86_64-linux-gnu/dbus-1.0/include"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/ibus-1.0"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/libmount"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/blkid"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/glib-2.0"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+				}
+			],
+			"language" : "C",
+			"precompileHeaders" : 
+			[
+				{
+					"backtrace" : 50,
+					"header" : "/home/userbrigh/CLionProjects/Szachy/SDL/src/SDL_internal.h"
+				}
+			],
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fPIC -fvisibility=hidden -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 16,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 18,
+					"fragment" : "-Wundef"
+				},
+				{
+					"backtrace" : 20,
+					"fragment" : "-Wfloat-conversion"
+				},
+				{
+					"backtrace" : 22,
+					"fragment" : "-fno-strict-aliasing"
+				},
+				{
+					"backtrace" : 24,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 26,
+					"fragment" : "-Wno-unused-local-typedefs"
+				},
+				{
+					"backtrace" : 28,
+					"fragment" : "-Wimplicit-fallthrough"
+				},
+				{
+					"backtrace" : 30,
+					"fragment" : "-fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 32,
+					"fragment" : "-idirafter/home/userbrigh/CLionProjects/Szachy/SDL/src/video/khronos"
+				},
+				{
+					"backtrace" : 34,
+					"fragment" : "-D_REENTRANT"
+				},
+				{
+					"fragment" : "-Winvalid-pch -include /home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "DLL_EXPORT"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MAJOR_VERSION=3"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MICRO_VERSION=0"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MINOR_VERSION=3"
+				},
+				{
+					"backtrace" : 38,
+					"define" : "USING_GENERATED_CONFIG_H"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/include-config-debug/build_config"
+				},
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/include-revision"
+				},
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/SDL/include"
+				},
+				{
+					"backtrace" : 41,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/SDL/src"
+				},
+				{
+					"backtrace" : 45,
+					"isSystem" : true,
+					"path" : "/usr/include/libdrm"
+				},
+				{
+					"backtrace" : 47,
+					"isSystem" : true,
+					"path" : "/usr/include/dbus-1.0"
+				},
+				{
+					"backtrace" : 47,
+					"isSystem" : true,
+					"path" : "/usr/lib/x86_64-linux-gnu/dbus-1.0/include"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/ibus-1.0"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/libmount"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/blkid"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/glib-2.0"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+				}
+			],
+			"language" : "C",
+			"precompileHeaders" : 
+			[
+				{
+					"backtrace" : 50,
+					"header" : "/home/userbrigh/CLionProjects/Szachy/SDL/src/SDL_internal.h"
+				}
+			],
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				78,
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				90,
+				91,
+				92,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				116,
+				117,
+				118,
+				119,
+				120,
+				121,
+				122,
+				123,
+				124,
+				125,
+				126,
+				127,
+				128,
+				129,
+				130,
+				131,
+				132,
+				133,
+				134,
+				135,
+				136,
+				137,
+				138,
+				139,
+				140,
+				141,
+				142,
+				143,
+				144,
+				145,
+				146,
+				147,
+				148,
+				149,
+				150,
+				151,
+				152,
+				153,
+				154,
+				155,
+				156,
+				157,
+				158,
+				159,
+				160,
+				161,
+				162,
+				163,
+				164,
+				165,
+				166,
+				167,
+				168,
+				169,
+				170,
+				171,
+				172,
+				173,
+				174,
+				175,
+				176,
+				177,
+				178,
+				179,
+				180,
+				181,
+				182,
+				183,
+				184,
+				185,
+				186,
+				187,
+				188,
+				189,
+				190,
+				191,
+				192,
+				193,
+				194,
+				195,
+				196,
+				197,
+				198,
+				199,
+				200,
+				201,
+				202,
+				203,
+				204,
+				205,
+				206,
+				207,
+				208,
+				209,
+				210,
+				211,
+				212,
+				213,
+				214,
+				215,
+				216,
+				217,
+				218,
+				219,
+				220,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				228,
+				229,
+				230,
+				231,
+				232,
+				233,
+				234,
+				235,
+				236,
+				237,
+				238,
+				239,
+				240,
+				241,
+				242,
+				243,
+				244,
+				245,
+				246,
+				247
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -fPIC -fvisibility=hidden -fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 16,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 18,
+					"fragment" : "-Wundef"
+				},
+				{
+					"backtrace" : 20,
+					"fragment" : "-Wfloat-conversion"
+				},
+				{
+					"backtrace" : 22,
+					"fragment" : "-fno-strict-aliasing"
+				},
+				{
+					"backtrace" : 24,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 26,
+					"fragment" : "-Wno-unused-local-typedefs"
+				},
+				{
+					"backtrace" : 28,
+					"fragment" : "-Wimplicit-fallthrough"
+				},
+				{
+					"backtrace" : 30,
+					"fragment" : "-fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 32,
+					"fragment" : "-idirafter/home/userbrigh/CLionProjects/Szachy/SDL/src/video/khronos"
+				},
+				{
+					"backtrace" : 34,
+					"fragment" : "-D_REENTRANT"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "DLL_EXPORT"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MAJOR_VERSION=3"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MICRO_VERSION=0"
+				},
+				{
+					"backtrace" : 36,
+					"define" : "SDL_BUILD_MINOR_VERSION=3"
+				},
+				{
+					"backtrace" : 38,
+					"define" : "USING_GENERATED_CONFIG_H"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/include-config-debug/build_config"
+				},
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/include-revision"
+				},
+				{
+					"backtrace" : 40,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/SDL/include"
+				},
+				{
+					"backtrace" : 41,
+					"path" : "/home/userbrigh/CLionProjects/Szachy/SDL/src"
+				},
+				{
+					"backtrace" : 45,
+					"isSystem" : true,
+					"path" : "/usr/include/libdrm"
+				},
+				{
+					"backtrace" : 47,
+					"isSystem" : true,
+					"path" : "/usr/include/dbus-1.0"
+				},
+				{
+					"backtrace" : 47,
+					"isSystem" : true,
+					"path" : "/usr/lib/x86_64-linux-gnu/dbus-1.0/include"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/ibus-1.0"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/libmount"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/blkid"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/include/glib-2.0"
+				},
+				{
+					"backtrace" : 49,
+					"isSystem" : true,
+					"path" : "/usr/lib/x86_64-linux-gnu/glib-2.0/include"
+				}
+			],
+			"language" : "C",
+			"precompileHeaders" : 
+			[
+				{
+					"backtrace" : 50,
+					"header" : "/home/userbrigh/CLionProjects/Szachy/SDL/src/SDL_internal.h"
+				}
+			],
+			"sourceIndexes" : 
+			[
+				24
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 13,
+			"id" : "SDL_uclibc::@e7c329919722962a2ad4"
+		}
+	],
+	"id" : "SDL3-shared::@e7c329919722962a2ad4",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-Wl,--version-script=/home/userbrigh/CLionProjects/Szachy/SDL/src/dynapi/SDL_dynapi.sym",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "-Wl,--no-undefined",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "-pthread",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 12,
+				"fragment" : "-lm",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "SDL/libSDL_uclibc.a",
+				"role" : "libraries"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "SDL3-shared",
+	"nameOnDisk" : "libSDL3.so",
+	"paths" : 
+	{
+		"build" : "SDL",
+		"source" : "SDL"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				78,
+				79,
+				80,
+				81,
+				82,
+				83,
+				84,
+				85,
+				86,
+				87,
+				88,
+				89,
+				90,
+				91,
+				92,
+				93,
+				94,
+				95,
+				96,
+				97,
+				98,
+				99,
+				100,
+				101,
+				102,
+				103,
+				104,
+				105,
+				106,
+				107,
+				108,
+				109,
+				110,
+				111,
+				112,
+				113,
+				114,
+				115,
+				116,
+				117,
+				118,
+				119,
+				120,
+				121,
+				122,
+				123,
+				124,
+				125,
+				126,
+				127,
+				128,
+				129,
+				130,
+				131,
+				132,
+				133,
+				134,
+				135,
+				136,
+				137,
+				138,
+				139,
+				140,
+				141,
+				142,
+				143,
+				144,
+				145,
+				146,
+				147,
+				148,
+				149,
+				150,
+				151,
+				152,
+				153,
+				154,
+				155,
+				156,
+				157,
+				158,
+				159,
+				160,
+				161,
+				162,
+				163,
+				164,
+				165,
+				166,
+				167,
+				168,
+				169,
+				170,
+				171,
+				172,
+				173,
+				174,
+				175,
+				176,
+				177,
+				178,
+				179,
+				180,
+				181,
+				182,
+				183,
+				184,
+				185,
+				186,
+				187,
+				188,
+				189,
+				190,
+				191,
+				192,
+				193,
+				194,
+				195,
+				196,
+				197,
+				198,
+				199,
+				200,
+				201,
+				202,
+				203,
+				204,
+				205,
+				206,
+				207,
+				208,
+				209,
+				210,
+				211,
+				212,
+				213,
+				214,
+				215,
+				216,
+				217,
+				218,
+				219,
+				220,
+				221,
+				222,
+				223,
+				224,
+				225,
+				226,
+				227,
+				228,
+				229,
+				230,
+				231,
+				232,
+				233,
+				234,
+				235,
+				236,
+				237,
+				238,
+				239,
+				240,
+				241,
+				242,
+				243,
+				244,
+				245,
+				246,
+				247
+			]
+		},
+		{
+			"name" : "Precompile Header File",
+			"sourceIndexes" : 
+			[
+				248
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"path" : "cmake-build-debug/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_assert.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_error.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_guid.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_hashtable.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_hints.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_list.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_log.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_properties.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/SDL_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/atomic/SDL_atomic.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/atomic/SDL_spinlock.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_audio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_audiocvt.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_audiodev.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_audioqueue.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_audioresample.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_audiotypecvt.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_mixer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/SDL_wave.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/camera/SDL_camera.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/SDL_core_unsupported.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/cpuinfo/SDL_cpuinfo.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 2,
+			"path" : "SDL/src/dynapi/SDL_dynapi.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_categories.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_clipboardevents.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_displayevents.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_dropevents.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_events.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_eventwatch.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_keyboard.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_keymap.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_keysym_to_keycode.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_keysym_to_scancode.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_mouse.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_pen.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_quit.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_scancode_tables.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_touch.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/SDL_windowevents.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/events/imKStoUCS.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/filesystem/SDL_filesystem.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/gpu/SDL_gpu.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/haptic/SDL_haptic.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/hidapi/SDL_hidapi.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/io/SDL_asyncio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/io/SDL_iostream.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/io/generic/SDL_asyncio_generic.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/SDL_gamepad.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/SDL_joystick.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/SDL_steam_virtual_gamepad.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/controller_type.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/locale/SDL_locale.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/main/SDL_main_callbacks.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/main/SDL_runapp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/misc/SDL_url.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/power/SDL_power.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/SDL_d3dmath.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/SDL_render.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/SDL_render_unsupported.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/SDL_yuv_sw.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/direct3d/SDL_render_d3d.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/direct3d/SDL_shaders_d3d.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/direct3d11/SDL_render_d3d11.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/direct3d11/SDL_shaders_d3d11.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/direct3d12/SDL_render_d3d12.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/direct3d12/SDL_shaders_d3d12.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/gpu/SDL_pipeline_gpu.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/gpu/SDL_render_gpu.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/gpu/SDL_shaders_gpu.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/opengl/SDL_render_gl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/opengl/SDL_shaders_gl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/opengles2/SDL_render_gles2.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/opengles2/SDL_shaders_gles2.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/ps2/SDL_render_ps2.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/psp/SDL_render_psp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_blendfillrect.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_blendline.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_blendpoint.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_drawline.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_drawpoint.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_render_sw.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_rotate.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/software/SDL_triangle.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/vitagxm/SDL_render_vita_gxm.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/vitagxm/SDL_render_vita_gxm_memory.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/vitagxm/SDL_render_vita_gxm_tools.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/vulkan/SDL_render_vulkan.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/render/vulkan/SDL_shaders_vulkan.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/sensor/SDL_sensor.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_crc16.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_crc32.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_getenv.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_iconv.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_malloc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_memcpy.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_memmove.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_memset.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_mslibc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_murmur3.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_qsort.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_random.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_stdlib.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_string.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/stdlib/SDL_strtokr.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/storage/SDL_storage.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/thread/SDL_thread.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/time/SDL_time.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/timer/SDL_timer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_RLEaccel.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit_0.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit_1.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit_A.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit_N.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit_auto.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit_copy.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_blit_slow.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_bmp.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_clipboard.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_egl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_fillrect.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_pixels.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_rect.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_stb.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_stretch.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_surface.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_video.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_video_unsupported.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_vulkan_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/SDL_yuv.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/yuv2rgb/yuv_rgb_lsx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/yuv2rgb/yuv_rgb_sse.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 52,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/yuv2rgb/yuv_rgb_std.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 54,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/dummy/SDL_dummyaudio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 56,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/disk/SDL_diskaudio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 58,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/camera/dummy/SDL_camera_dummy.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 60,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/loadso/dlopen/SDL_sysloadso.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 62,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/virtual/SDL_virtualjoystick.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 64,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/dummy/SDL_nullevents.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 64,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/dummy/SDL_nullframebuffer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 64,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/dummy/SDL_nullvideo.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 67,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/alsa/SDL_alsa_audio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 70,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/jack/SDL_jackaudio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 73,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/pulseaudio/SDL_pulseaudio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 76,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/audio/sndio/SDL_sndioaudio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11clipboard.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11dyn.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11events.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11framebuffer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11keyboard.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11messagebox.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11modes.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11mouse.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11opengl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11opengles.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11pen.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11settings.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11shape.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11touch.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11video.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11vulkan.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11window.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11xfixes.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11xinput2.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11xsync.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/SDL_x11xtest.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/edid-parse.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 79,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/x11/xsettings-client.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 81,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/kmsdrm/SDL_kmsdrmdyn.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 81,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/kmsdrm/SDL_kmsdrmevents.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 81,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/kmsdrm/SDL_kmsdrmmouse.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 81,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/kmsdrm/SDL_kmsdrmopengles.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 81,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/kmsdrm/SDL_kmsdrmvideo.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 81,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/kmsdrm/SDL_kmsdrmvulkan.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 83,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/tray/unix/SDL_tray.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 85,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/unix/SDL_appid.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 85,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/unix/SDL_poll.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 87,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/camera/v4l2/SDL_camera_v4l2.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 89,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/haptic/linux/SDL_syshaptic.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 91,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_dbus.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 91,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_system_theme.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 91,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_progressbar.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 93,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_ime.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 95,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_ibus.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 97,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_fcitx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 99,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_udev.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 101,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_evdev.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 101,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_evdev_kbd.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 103,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_evdev_capabilities.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 103,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/core/linux/SDL_threadprio.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_8bitdo.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_combined.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_gamecube.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_gip.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_lg4ff.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_luna.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_ps3.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_ps4.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_ps5.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_rumble.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_shield.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_stadia.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_steam.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_steam_hori.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_steamdeck.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_switch.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_wii.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_xbox360.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_xbox360w.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapi_xboxone.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/hidapi/SDL_hidapijoystick.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 108,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/haptic/hidapi/SDL_hidapihaptic.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 108,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/haptic/hidapi/SDL_hidapihaptic_lg4ff.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 110,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/joystick/linux/SDL_sysjoystick.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 112,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/thread/pthread/SDL_systhread.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 112,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/thread/pthread/SDL_sysmutex.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 112,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/thread/pthread/SDL_syscond.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 112,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/thread/pthread/SDL_sysrwlock.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 112,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/thread/pthread/SDL_systls.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 114,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/thread/pthread/SDL_syssem.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 116,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/misc/unix/SDL_sysurl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 118,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/power/linux/SDL_syspower.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 120,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/locale/unix/SDL_syslocale.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 122,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/filesystem/unix/SDL_sysfilesystem.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 124,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/storage/generic/SDL_genericstorage.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 126,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/storage/steam/SDL_steamstorage.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 128,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/filesystem/posix/SDL_sysfsops.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 130,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/time/unix/SDL_systime.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 132,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/timer/unix/SDL_systimer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 134,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/dialog/SDL_dialog.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 136,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/dialog/SDL_dialog_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 138,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/dialog/unix/SDL_unixdialog.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 140,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/dialog/unix/SDL_portaldialog.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 142,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/dialog/unix/SDL_zenitydialog.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 144,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/process/SDL_process.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 146,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/process/posix/SDL_posixprocess.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 148,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/offscreen/SDL_offscreenevents.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 148,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/offscreen/SDL_offscreenframebuffer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 148,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/offscreen/SDL_offscreenopengles.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 148,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/offscreen/SDL_offscreenvideo.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 148,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/offscreen/SDL_offscreenvulkan.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 148,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/video/offscreen/SDL_offscreenwindow.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 150,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/tray/SDL_tray_utils.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 152,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/gpu/vulkan/SDL_gpu_vulkan.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 154,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/sensor/dummy/SDL_dummysensor.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 156,
+			"compileGroupIndex" : 1,
+			"path" : "SDL/src/main/generic/SDL_sysmain_callbacks.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"path" : "cmake-build-debug/SDL/CMakeFiles/SDL3-shared.dir/cmake_pch.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "SHARED_LIBRARY"
+}

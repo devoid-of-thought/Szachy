@@ -1,0 +1,14 @@
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/CMakeFiles/Szachy.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/CMakeFiles/SDL3-shared.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/CMakeFiles/SDL3_test.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/CMakeFiles/SDL_uclibc.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/CMakeFiles/edit_cache.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/CMakeFiles/rebuild_cache.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_image/CMakeFiles/SDL3_image-shared.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_image/CMakeFiles/edit_cache.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_image/CMakeFiles/rebuild_cache.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_ttf/CMakeFiles/SDL3_ttf-shared.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_ttf/CMakeFiles/edit_cache.dir
+/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_ttf/CMakeFiles/rebuild_cache.dir
