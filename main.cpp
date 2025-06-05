@@ -16,8 +16,7 @@ constexpr int kScreenHeight{ 512 };
 
 SDL_Window* gWindow = nullptr;
 SDL_Renderer* gRenderer = nullptr;
-SDL_Surface* gScreenSurface = nullptr;
-SDL_Surface* gHelloWorld{ nullptr };
+
 SDL_Texture* whiteTileTexture = nullptr;
 SDL_Texture* blackTileTexture = nullptr;
 SDL_Texture* whiteHighlightTexture = nullptr;
@@ -131,7 +130,7 @@ void renderBoard() {
                     }
                 }
 
-                Tiles[x][y]->render(x * tileSize, y * tileSize);
+                Tiles[y][x]->render(y * tileSize, x * tileSize);
         }
         temp = selectedPiece;
         for (int i = 0; i < 2; i++) {
@@ -153,7 +152,7 @@ void renderBoard() {
 
 bool loadMedia()
 {
-    whiteTileTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/White_tile.png");
+     whiteTileTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/White_tile.png");
     blackTileTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/Black_tile.png");
     whiteHighlightTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/White_Highlight.png");
     blackHighlightTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/Black_Highlight.png");
@@ -200,6 +199,13 @@ bool loadMedia()
         for (int y = 0; y < 8; y++) {
             Tiles[x][y] = new Tile();
             Tiles[x][y]->BoardPosition = {x, y};
+            Tiles[x][y]->mWidth = tileSize;
+            Tiles[x][y]->mHeight = tileSize;
+            if ((x + y) % 2 != 0) {
+                Tiles[x][y]->loadFromFile("/home/userbrigh/CLionProjects/Szachy/Tekstury/Black_tile.png");
+            } else {
+                Tiles[x][y]->loadFromFile("/home/userbrigh/CLionProjects/Szachy/Tekstury/White_tile.png");
+            }
         }
     }
     return success;
@@ -226,26 +232,34 @@ void move(SDL_Event e) {
         int clickedX = e.button.x / tileSize;
         int clickedY = e.button.y / tileSize;
         pair<int,int> clickedPosition = {clickedX, clickedY};
-
-        if (selectedPiece!=nullptr) {
-            cout<<clickedX <<" "<< clickedY << " ";
-            cout<< to_string(selectedPiece->BoardPosition.first) + " " + to_string(selectedPiece->BoardPosition.second);
-            cout<< "Selected piece at: " << selectedPiece->BoardPosition.first << ", " << selectedPiece->BoardPosition.second << endl;
-            for (auto& move : selectedPiece->possibleMoves) {
-                cout << "Possible move: " << move.first << ", " << move.second << endl;
-            }
-
-        }
-
-
         if(selectedPiece!=nullptr&&( clickedX != selectedPiece->BoardPosition.first || clickedY != selectedPiece->BoardPosition.second))
         {
             for (auto& move : selectedPiece->possibleMoves) {
-                if (clickedPosition == move){
-                    Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = false;
-                    selectedPiece->BoardPosition.first = clickedX;
-                    selectedPiece->BoardPosition.second = clickedY;
-                    selectedPiece = nullptr;
+                if (clickedPosition == move) {
+                    if (Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite == selectedPiece->White) {
+                        cout << "Cannot capture own piece!" << endl;
+                        return;
+                    }
+                    else if (Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite != selectedPiece->White) {
+                        // Capture the piece
+                        int enemyColor = (selectedPiece->White) ? 1 : 0;
+                        for (int i = 0; i < 16; ++i) {
+                            if (chessPieces[enemyColor][i] && chessPieces[enemyColor][i]->BoardPosition == clickedPosition && chessPieces[enemyColor][i]->figure!=999) {
+                                chessPieces[enemyColor][i]->destroy();
+                                chessPieces[enemyColor][i] = nullptr;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = false;
+                                selectedPiece->BoardPosition.first = clickedX;
+                                selectedPiece->BoardPosition.second = clickedY;
+                                selectedPiece = nullptr;
+                                break;
+                            }
+                        }
+                    } else{
+                        Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = false;
+                        selectedPiece->BoardPosition.first = clickedX;
+                        selectedPiece->BoardPosition.second = clickedY;
+                        selectedPiece = nullptr;
+                    }
                 }
 
 
@@ -332,7 +346,12 @@ int main( int argc, char* args[] ) {
                     SDL_SetRenderDrawColor( gRenderer, 0x0, 0x0, 0x0, 0xFF );
                     renderBoard();
                     if (isWhiteTurn){
-                        move(e);
+                        if (isChecked(0) && selectedPiece->figure!=999) {
+                           cout << "WYBIERZ INNĄ FIGURĘ" << endl;
+                            selectedPiece = nullptr;
+                        } else {
+                            move(e);
+                        }
                     }else{
                         move(e);
                     }

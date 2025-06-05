@@ -72,9 +72,6 @@ void Piece::handleEvent(SDL_Event* e, Tile* Tiles[8][8]) {
                 selectedPiece = this;
                 generatePossibleMoves(Tiles);
                 }
-            if (this->White == false && selectedPiece != nullptr) {
-                destroy();
-            }
         }
     }
 }
@@ -146,102 +143,70 @@ void Piece::pawn(Tile* Tiles[8][8]) {
             possibleMoves.push_back({x + 1, y - 1});
         }
     }
-
-    // Debug output
-    for (auto& move : possibleMoves) {
-        std::cout << "Possible move: " << move.first << ", " << move.second << std::endl;
-    }
 }
 
 void Piece::Rook(Tile* Tiles[8][8]) {
-    int x = BoardPosition.first;  // column
-    int y = BoardPosition.second; // row
-
-    // Up (increasing row)
-    for (int i = y + 1; i < 8; ++i) {
-        if (Tiles[i][x]->hasPiece) {
-            if (White != Tiles[i][x]->isWhite) {
-                possibleMoves.push_back({x, i}); // Capture
-            }
-            break;
-        }
-        possibleMoves.push_back({x, i});
-    }
-
-    // Down (decreasing row)
-    for (int i = y - 1; i >= 0; --i) {
-        if (Tiles[i][x]->hasPiece) {
-            if (White != Tiles[i][x]->isWhite) {
-                possibleMoves.push_back({x, i}); // Capture
-            }
-            break;
-        }
-        possibleMoves.push_back({x, i});
-    }
-
-    // Right (increasing column)
-    for (int i = x + 1; i < 8; ++i) {
-        if (Tiles[y][i]->hasPiece) {
-            if (White != Tiles[y][i]->isWhite) {
-                possibleMoves.push_back({i, y}); // Capture
-            }
-            break;
-        }
-        possibleMoves.push_back({i, y});
-    }
-
-    // Left (decreasing column)
-    for (int i = x - 1; i >= 0; --i) {
-        if (Tiles[y][i]->hasPiece) {
-            if (White != Tiles[y][i]->isWhite) {
-                possibleMoves.push_back({i, y}); // Capture
-            }
-            break;
-        }
-        possibleMoves.push_back({i, y});
-    }
-}
-
-void Piece::Bishop(Tile *Tiles[8][8]) {
     int x = BoardPosition.first;
     int y = BoardPosition.second;
-        for (int i = 1; i < 8; ++i) {
-            if (x + i < 8 && y + i < 8 && Tiles[x + i][y + i]->hasPiece) {
-                if (White != Tiles[x + i][y + i]->isWhite) {
-                    possibleMoves.push_back({x + i, y + i}); // Capture
-                }
-                break; // Stop regardless of friendly or enemy
-            }
-            possibleMoves.push_back({x + i, y + i});
-        }
-        for (int i = 1; i < 8; ++i) {
-            if (x - i >= 0 && y - i >= 0 && Tiles[x - i][y - i]->hasPiece) {
-                if (White != Tiles[x - i][y - i]->isWhite) {
-                    possibleMoves.push_back({x - i, y - i}); // Capture
-                }
-                break;
-            }
-            possibleMoves.push_back({x - i, y - i});
-        }
-        for (int i = 1; i < 8; ++i) {
-            if (x + i < 8 && y - i >= 0 && Tiles[x + i][y - i]->hasPiece) {
-                if (White != Tiles[x + i][y - i]->isWhite) {
-                    possibleMoves.push_back({x + i, y - i}); // Capture
-                }
-                break;
-            }
-            possibleMoves.push_back({x + i, y - i});
-        }
-        for (int i = 1; i < 8; ++i) {
-            if (x - i >= 0 && y + i < 8 && Tiles[x - i][y + i]->hasPiece) {
-                if (White != Tiles[x - i][y + i]->isWhite) {
-                    possibleMoves.push_back({x - i, y + i}); // Capture
-                }
-                break;
-            }
-            possibleMoves.push_back({x - i, y + i});
-        }
+
+    // Up
+    for (int i = y + 1; i < 8; ++i) {
+        if (Tiles[i][x]->hasPiece) break;
+        possibleMoves.push_back({x, i});
+    }
+
+    // Down
+    for (int i = y - 1; i >= 0; --i) {
+        if (Tiles[i][x]->hasPiece) break;
+        possibleMoves.push_back({x, i});
+    }
+
+    // Right
+    for (int i = x + 1; i < 8; ++i) {
+        if (Tiles[y][i]->hasPiece) break;
+        possibleMoves.push_back({i, y});
+    }
+
+    // Left
+    for (int i = x - 1; i >= 0; --i) {
+        if (Tiles[y][i]->hasPiece) break;
+        possibleMoves.push_back({i, y});
+    }
 }
+
+void Piece::Bishop(Tile* Tiles[8][8]) {
+    int x = BoardPosition.first;
+    int y = BoardPosition.second;
+
+    // Down-right
+    for (int i = 1; i < 8; ++i) {
+        if (y + i >= 8 || x + i >= 8) break;
+        if (Tiles[y + i][x + i]->hasPiece) break;
+        possibleMoves.push_back({x + i, y + i});
+    }
+
+    // Up-left
+    for (int i = 1; i < 8; ++i) {
+        if (y - i < 0 || x - i < 0) break;
+        if (Tiles[y - i][x - i]->hasPiece) break;
+        possibleMoves.push_back({x - i, y - i});
+    }
+
+    // Up-right
+    for (int i = 1; i < 8; ++i) {
+        if (y - i < 0 || x + i >= 8) break;
+        if (Tiles[y - i][x + i]->hasPiece) break;
+        possibleMoves.push_back({x + i, y - i});
+    }
+
+    // Down-left
+    for (int i = 1; i < 8; ++i) {
+        if (y + i >= 8 || x - i < 0) break;
+        if (Tiles[y + i][x - i]->hasPiece) break;
+        possibleMoves.push_back({x - i, y + i});
+    }
+}
+
 void Piece::Knight(Tile *Tiles[8][8]) {
     int x = BoardPosition.first;
     int y = BoardPosition.second;
@@ -252,8 +217,8 @@ void Piece::Knight(Tile *Tiles[8][8]) {
     for (int i = 0; i < 8; ++i) {
         int newX = x + knightMoves[i][0];
         int newY = y + knightMoves[i][1];
-        if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
-            if (!Tiles[newX][newY]->hasPiece || (Tiles[newX][newY]->hasPiece && Tiles[newX][newY]->isWhite != White)) {
+        if (newY >= 0 && newY < 8 && newX >= 0 && newX < 8) {
+            if (!Tiles[newY][newX]->hasPiece || (Tiles[newY][newX]->hasPiece && Tiles[newY][newX]->isWhite != White)) {
                 possibleMoves.push_back({newX, newY});
             }
         }
@@ -263,86 +228,57 @@ void Piece::Queen(Tile *Tiles[8][8]) {
     int x = BoardPosition.first;
     int y = BoardPosition.second;
 
+    // Down-right
+    for (int i = 1; i < 8; ++i) {
+        if (y + i >= 8 || x + i >= 8) break;
+        if (Tiles[y + i][x + i]->hasPiece) break;
+        possibleMoves.push_back({x + i, y + i});
+    }
+
+    // Up-left
+    for (int i = 1; i < 8; ++i) {
+        if (y - i < 0 || x - i < 0) break;
+        if (Tiles[y - i][x - i]->hasPiece) break;
+        possibleMoves.push_back({x - i, y - i});
+    }
+
+    // Up-right
+    for (int i = 1; i < 8; ++i) {
+        if (y - i < 0 || x + i >= 8) break;
+        if (Tiles[y - i][x + i]->hasPiece) break;
+        possibleMoves.push_back({x + i, y - i});
+    }
+
+    // Down-left
+    for (int i = 1; i < 8; ++i) {
+        if (y + i >= 8 || x - i < 0) break;
+        if (Tiles[y + i][x - i]->hasPiece) break;
+        possibleMoves.push_back({x - i, y + i});
+    }
+
     // Up
     for (int i = y + 1; i < 8; ++i) {
-        if (Tiles[x][i]->hasPiece) {
-            if (White != Tiles[x][i]->isWhite) {
-                possibleMoves.push_back({x, i}); // Capture
-            }
-            break; // Stop regardless of friendly or enemy
-        }
+        if (Tiles[i][x]->hasPiece) break;
         possibleMoves.push_back({x, i});
     }
 
     // Down
     for (int i = y - 1; i >= 0; --i) {
-        if (Tiles[x][i]->hasPiece) {
-            if (White != Tiles[x][i]->isWhite) {
-                possibleMoves.push_back({x, i});
-            }
-            break;
-        }
+        if (Tiles[i][x]->hasPiece) break;
         possibleMoves.push_back({x, i});
     }
 
     // Right
     for (int i = x + 1; i < 8; ++i) {
-        if (Tiles[i][y]->hasPiece) {
-            if (White != Tiles[i][y]->isWhite) {
-                possibleMoves.push_back({i, y});
-            }
-            break;
-        }
+        if (Tiles[y][i]->hasPiece) break;
         possibleMoves.push_back({i, y});
     }
 
     // Left
     for (int i = x - 1; i >= 0; --i) {
-        if (Tiles[i][y]->hasPiece) {
-            if (White != Tiles[i][y]->isWhite) {
-                possibleMoves.push_back({i, y});
-            }
-            break;
-        }
+        if (Tiles[y][i]->hasPiece) break;
         possibleMoves.push_back({i, y});
     }
-    for (int i = 1; i < 8; ++i) {
-        if (x + i < 8 && y + i < 8 && Tiles[x + i][y + i]->hasPiece) {
-            if (White != Tiles[x + i][y + i]->isWhite) {
-                possibleMoves.push_back({x + i, y + i}); // Capture
-            }
-            break; // Stop regardless of friendly or enemy
-        }
-        possibleMoves.push_back({x + i, y + i});
-    }
-    for (int i = 1; i < 8; ++i) {
-        if (x - i >= 0 && y - i >= 0 && Tiles[x - i][y - i]->hasPiece) {
-            if (White != Tiles[x - i][y - i]->isWhite) {
-                possibleMoves.push_back({x - i, y - i}); // Capture
-            }
-            break;
-        }
-        possibleMoves.push_back({x - i, y - i});
-    }
-    for (int i = 1; i < 8; ++i) {
-        if (x + i < 8 && y - i >= 0 && Tiles[x + i][y - i]->hasPiece) {
-            if (White != Tiles[x + i][y - i]->isWhite) {
-                possibleMoves.push_back({x + i, y - i}); // Capture
-            }
-            break;
-        }
-        possibleMoves.push_back({x + i, y - i});
-    }
-    for (int i = 1; i < 8; ++i) {
-        if (x - i >= 0 && y + i < 8 && Tiles[x - i][y + i]->hasPiece) {
-            if (White != Tiles[x - i][y + i]->isWhite) {
-                possibleMoves.push_back({x - i, y + i}); // Capture
-            }
-            break;
-        }
-        possibleMoves.push_back({x - i, y + i});
-    }
-
 }
 void Piece::King(Tile *Tiles[8][8]) {
     int x = BoardPosition.first;
@@ -354,8 +290,8 @@ void Piece::King(Tile *Tiles[8][8]) {
     for (int i = 0; i < 8; ++i) {
         int newX = x + kingMoves[i][0];
         int newY = y + kingMoves[i][1];
-        if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
-            if (!Tiles[newX][newY]->hasPiece || (Tiles[newX][newY]->hasPiece && Tiles[newX][newY]->isWhite != White)) {
+        if (newY >= 0 && newY < 8 && newX >= 0 && newX < 8) {
+            if (!Tiles[newY][newX]->hasPiece || (Tiles[newY][newX]->hasPiece && Tiles[newY][newX]->isWhite != White)) {
                 possibleMoves.push_back({newX, newY});
             }
         }

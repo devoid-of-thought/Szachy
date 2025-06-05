@@ -24,14 +24,35 @@ Tile::~Tile()
     //Clean up texture
     destroy();
 }
-bool Tile::load(SDL_Texture* Texture )
+bool Tile::loadFromFile( std::string path )
 {
     //Clean up texture if it already exists
     destroy();
-    mTexture = Texture;
-    mWidth = Texture->w;
-    mHeight = Texture->h;
 
+    //Load surface
+    if( SDL_Surface* loadedSurface = IMG_Load( path.c_str() ); loadedSurface == nullptr )
+    {
+        SDL_Log( "Unable to load image %s! SDL_image error: %s\n", path.c_str(), SDL_GetError() );
+    }
+    else
+    {
+        //Create texture from surface
+        if( mTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface ); mTexture == nullptr )
+        {
+            SDL_Log( "Unable to create texture from loaded pixels! SDL error: %s\n", SDL_GetError() );
+        }
+        else
+        {
+            //Get image dimensions
+            mWidth = loadedSurface->w;
+            mHeight = loadedSurface->h;
+        }
+
+        //Clean up loaded surface
+        SDL_DestroySurface( loadedSurface );
+    }
+
+    //Return success if texture loaded
     return mTexture != nullptr;
 }
 
@@ -51,6 +72,7 @@ void Tile::render( float x, float y )
 
     //Render texture
     SDL_RenderTexture( gRenderer, mTexture, nullptr, &dstRect );
+
 
 }
 int Tile::getWidth()

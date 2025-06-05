@@ -17,7 +17,7 @@
 
 
         //Loads texture from disk
-        bool load(SDL_Texture* Texture );
+        bool loadFromFile( std::string path );
 
         //Cleans up texture
         void destroy();
@@ -34,6 +34,7 @@
         bool hasPiece;
         bool isWhite;
         bool highlightBorder;
+
         pair<int, int> BoardPosition;
     };
     #endif //PLANSZA_H
