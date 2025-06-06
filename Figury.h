@@ -20,7 +20,7 @@ public:
 
     //Cleans up texture
     void destroy();
-    void handleEvent( SDL_Event* e,Tile* Tiles[8][8] );
+    void handleEvent( SDL_Event* e,Tile* Tiles[8][8], Piece* chessPieces[2][16] );
     //Draws texture
     void render( float x, float y );
 
@@ -34,15 +34,17 @@ public:
     void Knight(Tile* Tiles[8][8]);
     void Bishop(Tile* Tiles[8][8]);
     void Queen(Tile* Tiles[8][8]);
-    void King(Tile* Tiles[8][8]);
+    void King(Tile* Tiles[8][8],Piece* chessPieces[2][16]);
+    bool isChecked(int color, Tile* Tiles[8][8], Piece* chessPieces[2][16],pair<int, int> position);
+
     void resetPossibleMoves();
-    void generatePossibleMoves(Tile* Tiles[8][8]);
+    void generatePossibleMoves(Tile *Tiles[8][8], Piece* chessPieces[2][16]);
     //Texture dimensions
     int mWidth;
     int mHeight;
     bool White;
     int figure;
-    bool hasMoved;
+    int hasMoved;
     vector<pair<int, int>> possibleMoves;
     pair<int, int> BoardPosition{ 0, 0 };
 };

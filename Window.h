@@ -15,6 +15,7 @@
 extern SDL_Window* gWindow;
 extern Piece* selectedPiece;
 extern SDL_Renderer* gRenderer;
+extern bool isChecked(int color);
 
 extern SDL_Surface* gScreenSurface;
 
