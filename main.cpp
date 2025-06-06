@@ -3,7 +3,7 @@
 #include "SDL/include/SDL3/SDL.h"
 
 #include "Figury.h"
-#include <limits>
+
 #include <iostream>
 #include <algorithm>
 #include "Window.h"
@@ -226,21 +226,38 @@ void close(T& PngTexture)
 
     SDL_Quit();
 }
+void Move(Piece* piece,pair<int,int> from, pair<int,int> to) {
+    Tiles[from.second][from.first]->hasPiece =
+                                false;
+    Tiles[from.second][from.first]->pieceOnTile =
+            nullptr;
+    piece->BoardPosition.first = to.first;
+    piece->BoardPosition.second = to.second;
+    Tiles[to.second][to.first]->hasPiece = true;
 
-void move(SDL_Event e) {
-    if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
-        int tileSize = 64;
-        int clickedX = e.button.x / tileSize;
-        int clickedY = e.button.y / tileSize;
-        pair<int, int> clickedPosition = {clickedX, clickedY};
-        temp = selectedPiece;
-        if (selectedPiece != nullptr && (clickedX != selectedPiece->BoardPosition.first || clickedY != selectedPiece->
-                                         BoardPosition.second)) {
-            for (auto &move: selectedPiece->possibleMoves) {
-                if (clickedPosition == move) {
-                    if ((Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite == selectedPiece->
-                         White && (selectedPiece->figure == 999 || selectedPiece->figure == 5))) {
-                        if (selectedPiece->figure == 5 && selectedPiece->BoardPosition.first == 0) {
+    Tiles[to.second][to.first]->pieceOnTile =
+            piece;
+}
+void Capture(Piece* piece, int i, pair<int,int> clickedPosition) {
+    int enemyColor = (piece->White) ? 1 : 0;
+    chessPieces[enemyColor][i]->destroy();
+    Tiles[chessPieces[enemyColor][i]->BoardPosition.second][chessPieces[enemyColor][i]->
+        BoardPosition.first]->hasPiece = false;
+    Tiles[chessPieces[enemyColor][i]->BoardPosition.second][chessPieces[enemyColor][i]->
+        BoardPosition.first]->pieceOnTile = nullptr;
+    chessPieces[enemyColor][i] = nullptr;
+    Move(piece, piece->BoardPosition, clickedPosition);
+}
+void Promotion(Piece* piece) {
+    if (piece->figure == 1 && piece->BoardPosition.second == 0) {
+        piece->figure = 9;
+        piece->loadFromFile(
+            "/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_qlt60.png");
+    }
+
+}
+void Castle(pair<int,int> clickedPosition) {
+                if (selectedPiece->figure == 5 && selectedPiece->BoardPosition.first == 0) {
                             int color = (selectedPiece->White) ? 0 : 1;
                             Tiles[selectedPiece->BoardPosition.second][2]->pieceOnTile = chessPieces[color][3];
                             Tiles[selectedPiece->BoardPosition.second][2]->hasPiece = true;
@@ -251,10 +268,10 @@ void move(SDL_Event e) {
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile
                                     = nullptr;
                             chessPieces[color][3]->BoardPosition.first = 2;
-                            chessPieces[color][3]->BoardPosition.second = clickedY;
+                            chessPieces[color][3]->BoardPosition.second = (selectedPiece->White) ? 7 : 0;
                             lastMovement = selectedPiece->BoardPosition;
                             selectedPiece->BoardPosition.first = 3;
-                            selectedPiece->BoardPosition.second = clickedY;
+                            selectedPiece->BoardPosition.second = (selectedPiece->White) ? 7 : 0;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece =
                                     true;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile
@@ -262,8 +279,9 @@ void move(SDL_Event e) {
                             temp = selectedPiece;
                             selectedPiece = nullptr;
                             isWhiteTurn = false;
-                        } else if (selectedPiece->figure == 5 && selectedPiece->BoardPosition.first == 7) {
-                            int color = (selectedPiece->White) ? 0 : 1;
+                } else if (selectedPiece->figure == 5 && selectedPiece->BoardPosition.first == 7) {
+
+                        int color = (selectedPiece->White) ? 0 : 1;
                             Tiles[selectedPiece->BoardPosition.second][6]->pieceOnTile = chessPieces[color][3];
                             Tiles[selectedPiece->BoardPosition.second][6]->hasPiece = true;
                             Tiles[selectedPiece->BoardPosition.second][4]->hasPiece = false;
@@ -273,11 +291,11 @@ void move(SDL_Event e) {
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile
                                     = nullptr;
                             chessPieces[color][3]->BoardPosition.first = 6;
-                            chessPieces[color][3]->BoardPosition.second = clickedY;
+                            chessPieces[color][3]->BoardPosition.second = (selectedPiece->White) ? 7 : 0;
                             lastMovement = selectedPiece->BoardPosition;
 
                             selectedPiece->BoardPosition.first = 5;
-                            selectedPiece->BoardPosition.second = clickedY;
+                            selectedPiece->BoardPosition.second = (selectedPiece->White) ? 7 : 0;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece =
                                     true;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile
@@ -286,7 +304,7 @@ void move(SDL_Event e) {
                             selectedPiece=nullptr;
                             isWhiteTurn = false;
 
-                        } else if (selectedPiece->figure == 999 && clickedX == 0) {
+                        } else if (selectedPiece->figure == 999 && clickedPosition.first == 0) {
                             int color = (selectedPiece->White) ? 0 : 1;
                             Tiles[selectedPiece->BoardPosition.second][3]->pieceOnTile = chessPieces[color][0];
                             Tiles[selectedPiece->BoardPosition.second][3]->hasPiece = true;
@@ -297,11 +315,11 @@ void move(SDL_Event e) {
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile
                                     = nullptr;
                             chessPieces[color][0]->BoardPosition.first = 3;
-                            chessPieces[color][0]->BoardPosition.second = clickedY;
+                            chessPieces[color][0]->BoardPosition.second = (selectedPiece->White) ? 7 : 0;;
                             lastMovement = selectedPiece->BoardPosition;
 
                             selectedPiece->BoardPosition.first = 2;
-                            selectedPiece->BoardPosition.second = clickedY;
+                            selectedPiece->BoardPosition.second = (selectedPiece->White) ? 7 : 0;;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece =
                                     true;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile
@@ -316,11 +334,11 @@ void move(SDL_Event e) {
                             Tiles[selectedPiece->BoardPosition.second][4]->hasPiece = false;
                             Tiles[selectedPiece->BoardPosition.second][4]->pieceOnTile = nullptr;
                             chessPieces[color][7]->BoardPosition.first = 5;
-                            chessPieces[color][7]->BoardPosition.second = clickedY;
+                            chessPieces[color][7]->BoardPosition.second = (selectedPiece->White) ? 7 : 0;;
                             lastMovement = selectedPiece->BoardPosition;
 
                             selectedPiece->BoardPosition.first = 6;
-                            selectedPiece->BoardPosition.second = clickedY;
+                            selectedPiece->BoardPosition.second = (selectedPiece->White) ? 7 : 0;;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece =
                                     true;
                             Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile
@@ -329,6 +347,22 @@ void move(SDL_Event e) {
                             selectedPiece = nullptr;
                             isWhiteTurn = false;
                         }
+
+}
+void move(SDL_Event e) {
+    if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
+        int tileSize = 64;
+        int clickedX = e.button.x / tileSize;
+        int clickedY = e.button.y / tileSize;
+        pair<int, int> clickedPosition = {clickedX, clickedY};
+        temp = selectedPiece;
+        if (selectedPiece != nullptr && (clickedX != selectedPiece->BoardPosition.first || clickedY != selectedPiece->
+                                         BoardPosition.second)) {
+            for (auto &move: selectedPiece->possibleMoves) {
+                if (clickedPosition == move) {
+                    if ((Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite == selectedPiece->
+                         White && (selectedPiece->figure == 999 || selectedPiece->figure == 5))) {
+                        Castle(clickedPosition);
                     } else if (Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite ==
                                selectedPiece->White) {
                         cout << "Cannot capture own piece!" << endl;
@@ -340,32 +374,9 @@ void move(SDL_Event e) {
                         for (int i = 0; i < 16; ++i) {
                             if (chessPieces[enemyColor][i] && chessPieces[enemyColor][i]->BoardPosition ==
                                 clickedPosition && chessPieces[enemyColor][i]->figure != 999) {
-                                chessPieces[enemyColor][i]->destroy();
                                 lastMovement = selectedPiece->BoardPosition;
-
-                                Tiles[chessPieces[enemyColor][i]->BoardPosition.second][chessPieces[enemyColor][i]->
-                                    BoardPosition.first]->hasPiece = false;
-                                Tiles[chessPieces[enemyColor][i]->BoardPosition.second][chessPieces[enemyColor][i]->
-                                    BoardPosition.first]->pieceOnTile = nullptr;
-                                chessPieces[enemyColor][i] = nullptr;
-
-                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece
-                                        = false;
-                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->
-                                        pieceOnTile = nullptr;
-                                selectedPiece->BoardPosition.first = clickedX;
-                                selectedPiece->BoardPosition.second = clickedY;
-                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece
-                                        = true;
-                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->
-                                        pieceOnTile = selectedPiece;
-                                isWhiteTurn = false;
-
-                                if (selectedPiece->figure == 1 && selectedPiece->BoardPosition.second == 0) {
-                                    selectedPiece->figure = 9;
-                                    selectedPiece->loadFromFile(
-                                        "/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_qlt60.png");
-                                }
+                                Capture(selectedPiece, i, clickedPosition);
+                                Promotion(selectedPiece);
                                 temp = selectedPiece;
                                 selectedPiece = nullptr;
                                 break;
@@ -373,21 +384,8 @@ void move(SDL_Event e) {
                         }
                     } else {
                         lastMovement = selectedPiece->BoardPosition;
-
-                        Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece =
-                                false;
-                        Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile =
-                                nullptr;
-                        selectedPiece->BoardPosition.first = clickedX;
-                        selectedPiece->BoardPosition.second = clickedY;
-                        Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = true;
-                        Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile =
-                                selectedPiece;
-                        if (selectedPiece->figure == 1 && selectedPiece->BoardPosition.second == 0) {
-                            selectedPiece->figure = 9;
-                            selectedPiece->
-                                    loadFromFile("/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_qlt60.png");
-                        }
+                        Move(selectedPiece, selectedPiece->BoardPosition, clickedPosition);
+                        Promotion(selectedPiece);
                         isWhiteTurn = false;
                         temp = selectedPiece;
                         selectedPiece = nullptr;
@@ -448,7 +446,66 @@ void mirrorWhiteMove(std::pair<int, int> from, std::pair<int, int> to) {
         std::cout << "No black piece to mirror at expected location.\n";
     }
 }
+struct bestMove{
+    pair<int, int> from;
+    pair<int, int> to;
+    int value;
+};
+int evaluate(Piece* chessPieces[2][16]) {
+    int BoardValue = 0;
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 16; ++j) {
+            if (chessPieces[i][j]) {
+                BoardValue += (chessPieces[i][j]->White ? +chessPieces[i][j]->figure : -chessPieces[i][j]->figure);
+            }
+        }
+    }
+}
+int bestValue = 0;
+bestMove ruch{{0, 0}, {0, 0}, 0};
+bestMove MinMax(int depth, int color,Tile* Tiles[8][8], Piece* chessPieces[2][16]) {
+    if (depth==0) {
+        return ruch;
+    }
+    if (color ==0) {
+        bestValue = -1000000;
+    } else {
+        bestValue = 1000000;
+    }
+    vector<bestMove> moves;
+    for (int i = 0; i<16;i++) {
+        if (chessPieces[color][i]==nullptr) continue;
+        chessPieces[color][i]->resetPossibleMoves();
+        chessPieces[color][i]->generatePossibleMoves(Tiles,chessPieces);
+        for (auto& mv : chessPieces[color][i]->possibleMoves) {
+            moves.push_back({{chessPieces[color][i]->BoardPosition.first, chessPieces[color][i]->BoardPosition.second}, mv, 0});
+        }
+        for (auto& mv : moves) {
+            if (Tiles[mv.to.second][mv.to.first]->hasPiece) {
+                Piece* capturedPiece = Tiles[mv.to.second][mv.to.first]->pieceOnTile;
+            }
+            bestMove reply = MinMax(depth - 1, (color == 0) ? 1 : 0, Tiles, chessPieces);
+            mv.value = reply.value;
 
+            if (color == 0) {
+                if (mv.value > bestValue) {
+                    bestValue = mv.value;
+                    ruch = mv;
+                }
+            } else {
+                if (mv.value < bestValue) {
+                    bestValue = mv.value;
+                    ruch = mv;
+                }
+            }
+        }
+    }
+
+}
+bestMove SI(int d) {
+     int depth = d-1;
+
+}
 bool inCheck(int color) {
     int enemyColor = (color == 0) ? 1 : 0;
     std::pair<int, int> kingPos = chessPieces[color][3]->BoardPosition;
