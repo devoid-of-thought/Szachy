@@ -1,10 +1,10 @@
-#include "SDL_image/include/SDL3_image/SDL_image.h"
+
+#ifndef FIGURY_H
+#define FIGURY_H
 #include "SDL/include/SDL3/SDL.h"
 #include "Plansza.h"
 #include <vector>
 #include <iostream>
-#ifndef FIGURY_H
-#define FIGURY_H
 using namespace std;
 class Piece
 {
@@ -42,6 +42,7 @@ public:
     int mHeight;
     bool White;
     int figure;
+    bool hasMoved;
     vector<pair<int, int>> possibleMoves;
     pair<int, int> BoardPosition{ 0, 0 };
 };

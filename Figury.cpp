@@ -14,7 +14,8 @@ Piece::Piece(int row, int col, bool isWhite,int type):
     mHeight{ 0 },
     BoardPosition{row,col},
     White {isWhite},
-    figure{type}
+    figure{type},
+    hasMoved{false}
 
 {
 
@@ -69,6 +70,11 @@ void Piece::handleEvent(SDL_Event* e, Tile* Tiles[8][8]) {
         if (mouseX >= pieceX && mouseX < pieceX + tileSize &&
             mouseY >= pieceY && mouseY < pieceY + tileSize) {
             if (this->White) {
+if (selectedPiece != nullptr &&
+    ((selectedPiece->figure == 5 && figure == 999) ||
+     (selectedPiece->figure == 999 && figure == 5))) {
+    return;
+}
                 selectedPiece = this;
                 generatePossibleMoves(Tiles);
                 }
@@ -171,6 +177,32 @@ void Piece::Rook(Tile* Tiles[8][8]) {
     for (int i = x - 1; i >= 0; --i) {
         if (Tiles[y][i]->hasPiece) break;
         possibleMoves.push_back({i, y});
+    }
+    if (!hasMoved) {
+        int row = BoardPosition.second;
+
+        // Kingside castling
+        if (Tiles[row][4]->hasPiece) {
+            Piece* king = Tiles[row][4]->pieceOnTile;
+            if (king && king->figure == 999 && !king->hasMoved) {
+                if (!Tiles[row][5]->hasPiece && !Tiles[row][6]->hasPiece) {
+                    possibleMoves.push_back({4, row}); // King's target square
+                }
+            }
+        }
+
+        // Queenside castling
+        if (Tiles[row][4]->hasPiece) {
+            Piece* king = Tiles[row][4]->pieceOnTile;
+            if (king && king->figure == 999 && !king->hasMoved) {
+                if (!Tiles[row][1]->hasPiece && !Tiles[row][2]->hasPiece && !Tiles[row][3]->hasPiece) {
+                    possibleMoves.push_back({4, row}); // King's target square
+                }
+            }
+
+
+
+        }
     }
 }
 
@@ -295,6 +327,47 @@ void Piece::King(Tile *Tiles[8][8]) {
                 possibleMoves.push_back({newX, newY});
             }
         }
+    }
+    if (!hasMoved) {
+        int row = y;
+        // Kingside castling
+        if (White) {
+            if (Tiles[7][7]->hasPiece) {
+                Piece* rook = Tiles[row][7]->pieceOnTile;
+                if (rook && rook->figure == 5 && !rook->hasMoved) {
+                    if (!Tiles[7][5]->hasPiece && !Tiles[7][6]->hasPiece) {
+                        possibleMoves.push_back({7, 7}); // King's target square
+                    }
+                }
+            }
+            if (Tiles[7][0]->hasPiece) {
+                Piece* rook = Tiles[row][0]->pieceOnTile;
+                if (rook && rook->figure == 5 && !rook->hasMoved) {
+                    if (!Tiles[7][1]->hasPiece && !Tiles[7][2]->hasPiece && !Tiles[7][3]->hasPiece) {
+                        possibleMoves.push_back({0, 7}); // King's target square
+                    }
+                }
+            }
+        } else {
+            if (Tiles[0][7]->hasPiece) {
+                Piece* rook = Tiles[0][7]->pieceOnTile;
+                if (rook && rook->figure == 5 && !rook->hasMoved) {
+                    if (!Tiles[0][5]->hasPiece && !Tiles[0][6]->hasPiece) {
+                        possibleMoves.push_back({7, 0}); // King's target square
+                    }
+                }
+            }
+            if (Tiles[0][0]->hasPiece) {
+                Piece* rook = Tiles[0][0]->pieceOnTile;
+                if (rook && rook->figure == 5 && !rook->hasMoved) {
+                    if (!Tiles[0][1]->hasPiece && !Tiles[0][2]->hasPiece && !Tiles[0][3]->hasPiece) {
+                        possibleMoves.push_back({0, 0}); // King's target square
+                    }
+                }
+            }
+        }
+
+
     }
 }
 void Piece::resetPossibleMoves() {

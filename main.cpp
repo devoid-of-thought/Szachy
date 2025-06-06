@@ -138,6 +138,7 @@ void renderBoard() {
                 if (chessPieces[i][j] != nullptr) {
                     chessPieces[i][j]->render(chessPieces[i][j]->BoardPosition.first* tileSize, chessPieces[i][j]->BoardPosition.second * tileSize);
                     Tiles[chessPieces[i][j]->BoardPosition.second][chessPieces[i][j]->BoardPosition.first]->hasPiece = true;
+                    Tiles[chessPieces[i][j]->BoardPosition.second][chessPieces[i][j]->BoardPosition.first]->pieceOnTile = chessPieces[i][j];
                     if (chessPieces[i][j]->White) {
                         Tiles[chessPieces[i][j]->BoardPosition.second][chessPieces[i][j]->BoardPosition.first]->isWhite = true;
                     } else {
@@ -226,52 +227,110 @@ void close(T& PngTexture)
     SDL_Quit();
 }
 
-void move(SDL_Event e) {
-    if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
-        int tileSize = 64;
-        int clickedX = e.button.x / tileSize;
-        int clickedY = e.button.y / tileSize;
-        pair<int,int> clickedPosition = {clickedX, clickedY};
-        if(selectedPiece!=nullptr&&( clickedX != selectedPiece->BoardPosition.first || clickedY != selectedPiece->BoardPosition.second))
-        {
-            for (auto& move : selectedPiece->possibleMoves) {
-                if (clickedPosition == move) {
-                    if (Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite == selectedPiece->White) {
-                        cout << "Cannot capture own piece!" << endl;
-                        return;
-                    }
-                    else if (Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite != selectedPiece->White) {
-                        // Capture the piece
-                        int enemyColor = (selectedPiece->White) ? 1 : 0;
-                        for (int i = 0; i < 16; ++i) {
-                            if (chessPieces[enemyColor][i] && chessPieces[enemyColor][i]->BoardPosition == clickedPosition && chessPieces[enemyColor][i]->figure!=999) {
-                                chessPieces[enemyColor][i]->destroy();
-                                chessPieces[enemyColor][i] = nullptr;
-                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = false;
-                                selectedPiece->BoardPosition.first = clickedX;
+    void move(SDL_Event e) {
+        if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
+            int tileSize = 64;
+            int clickedX = e.button.x / tileSize;
+            int clickedY = e.button.y / tileSize;
+            pair<int,int> clickedPosition = {clickedX, clickedY};
+            if(selectedPiece!=nullptr&&( clickedX != selectedPiece->BoardPosition.first || clickedY != selectedPiece->BoardPosition.second))
+            {
+                for (auto& move : selectedPiece->possibleMoves) {
+                    if (clickedPosition == move) {
+                        if ((Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite == selectedPiece->White&&(selectedPiece->figure==999||selectedPiece->figure==5))) {
+                            if (selectedPiece->figure == 5 && selectedPiece->BoardPosition.first== 0) {
+                                int color = (selectedPiece->White) ? 0 : 1;
+                                Tiles[selectedPiece->BoardPosition.second][2]->pieceOnTile = chessPieces[color][3];
+                                chessPieces[color][3]->BoardPosition.first = 2;
+                                chessPieces[color][3]->BoardPosition.second=clickedY;
+                                selectedPiece->BoardPosition.first = 3;
                                 selectedPiece->BoardPosition.second = clickedY;
-                                selectedPiece = nullptr;
-                                break;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = true;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = selectedPiece;
                             }
+                            else if (selectedPiece->figure == 5 && selectedPiece->BoardPosition.first== 7) {
+                                int color = (selectedPiece->White) ? 0 : 1;
+                                Tiles[selectedPiece->BoardPosition.second][6]->pieceOnTile = chessPieces[color][3];
+                                chessPieces[color][3]->BoardPosition.first = 6;
+                                chessPieces[color][3]->BoardPosition.second=clickedY;
+                                selectedPiece->BoardPosition.first = 5;
+                                selectedPiece->BoardPosition.second = clickedY;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = true;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = selectedPiece;
+                            } else if (selectedPiece->figure==999&& clickedX==0) {
+                                int color = (selectedPiece->White) ? 0 : 1;
+                                Tiles[selectedPiece->BoardPosition.second][3]->pieceOnTile = chessPieces[color][3];
+                                chessPieces[color][0]->BoardPosition.first = 3;
+                                chessPieces[color][0]->BoardPosition.second=clickedY;
+                                selectedPiece->BoardPosition.first = 2;
+                                selectedPiece->BoardPosition.second = clickedY;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = true;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = selectedPiece;
+                            }
+                            else {
+                                int color = (selectedPiece->White) ? 0 : 1;
+                                Tiles[selectedPiece->BoardPosition.second][5]->pieceOnTile = chessPieces[color][3];
+                                chessPieces[color][7]->BoardPosition.first =5;
+                                chessPieces[color][7]->BoardPosition.second=clickedY;
+                                selectedPiece->BoardPosition.first = 6;
+                                selectedPiece->BoardPosition.second = clickedY;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = true;
+                                Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = selectedPiece;
+                            }
+                        } else
+
+                        if (Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite == selectedPiece->White) {
+                            cout << "Cannot capture own piece!" << endl;
+                            return;
                         }
-                    } else{
-                        Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = false;
-                        selectedPiece->BoardPosition.first = clickedX;
-                        selectedPiece->BoardPosition.second = clickedY;
-                        selectedPiece = nullptr;
+                        else if (Tiles[clickedY][clickedX]->hasPiece && Tiles[clickedY][clickedX]->isWhite != selectedPiece->White) {
+                            // Capture the piece
+                            int enemyColor = (selectedPiece->White) ? 1 : 0;
+                            for (int i = 0; i < 16; ++i) {
+                                if (chessPieces[enemyColor][i] && chessPieces[enemyColor][i]->BoardPosition == clickedPosition && chessPieces[enemyColor][i]->figure!=999) {
+                                    chessPieces[enemyColor][i]->destroy();
+                                    Tiles[chessPieces[enemyColor][i]->BoardPosition.second][chessPieces[enemyColor][i]->BoardPosition.first]->hasPiece = false;
+                                    Tiles[chessPieces[enemyColor][i]->BoardPosition.second][chessPieces[enemyColor][i]->BoardPosition.first]->pieceOnTile = nullptr;
+                                    chessPieces[enemyColor][i] = nullptr;
+
+                                    Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = false;
+                                    Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = nullptr;
+                                    selectedPiece->BoardPosition.first = clickedX;
+                                    selectedPiece->BoardPosition.second = clickedY;
+                                    Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = true;
+                                    Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = selectedPiece;
+                                    if(selectedPiece->figure == 1 && selectedPiece->BoardPosition.second == 0) {
+                                        selectedPiece->figure =9;
+                                        selectedPiece->loadFromFile("/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_qlt60.png");
+                                    }
+                                    selectedPiece = nullptr;
+                                    break;
+                                }
+                            }
+                        } else{
+                            Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = false;
+                            Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = nullptr;
+                            selectedPiece->BoardPosition.first = clickedX;
+                            selectedPiece->BoardPosition.second = clickedY;
+                            Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->hasPiece = true;
+                            Tiles[selectedPiece->BoardPosition.second][selectedPiece->BoardPosition.first]->pieceOnTile = selectedPiece;
+                            if(selectedPiece->figure == 1 && selectedPiece->BoardPosition.second == 0) {
+                                selectedPiece->figure =9;
+                                selectedPiece->loadFromFile("/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_qlt60.png");
+                            }
+                            selectedPiece = nullptr;
+                        }
                     }
+
+
                 }
 
 
             }
-
-
         }
     }
-}
 bool isChecked(int color) {
     int enemyColor = (color == 0) ? 1 : 0;
-
     std::pair<int, int> kingPos = chessPieces[color][3]->BoardPosition;
     for (int i = 0; i < 16; ++i) {
         Piece* enemy = chessPieces[enemyColor][i];

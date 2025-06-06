@@ -1,11 +1,11 @@
-    #include "SDL_image/include/SDL3_image/SDL_image.h"
-    #include "SDL/include/SDL3/SDL.h"
 
-    #include <vector>
-    #include <iostream>
     #ifndef PLANSZA_H
     #define PLANSZA_H
+#include "SDL/include/SDL3/SDL.h"
+#include <vector>
+#include <iostream>
     using namespace std;
+    class Piece;
     class Tile
     {
     public:
@@ -34,6 +34,7 @@
         bool hasPiece;
         bool isWhite;
         bool highlightBorder;
+        Piece* pieceOnTile;
 
         pair<int, int> BoardPosition;
     };

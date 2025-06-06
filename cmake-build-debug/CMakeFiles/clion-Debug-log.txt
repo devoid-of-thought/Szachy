@@ -44,7 +44,7 @@
 -- Platform: Linux-6.8.0-59-generic
 -- 64-bit:   TRUE
 -- Compiler: /usr/bin/cc
--- Revision: SDL3-3.3.0-release-3.2.6-536-g514d96de0
+-- Revision: SDL3-3.3.0-release-3.2.6-537-g4c7828b1d
 -- Vendor:   
 -- 
 -- Subsystems:
@@ -186,6 +186,6 @@
 -- SDL3_ttf backends:
 -- - enabled:  freetype
 -- - disabled: harfbuzz plutosvg
--- Configuring done (0.7s)
+-- Configuring done (0.5s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/userbrigh/CLionProjects/Szachy/cmake-build-debug

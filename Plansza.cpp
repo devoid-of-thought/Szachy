@@ -14,7 +14,8 @@ Tile::Tile():
     BoardPosition{0,0},
     hasPiece{ false },
     isWhite {false},
-    highlightBorder{ false }
+    highlightBorder{ false },
+    pieceOnTile{ nullptr }
 {
 
 }
