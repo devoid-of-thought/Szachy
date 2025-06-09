@@ -11,7 +11,7 @@
     public:
         //Initializes texture variables
         Tile();
-
+    Tile(const Tile &other);
         //Cleans up texture variables
         ~Tile();
 
@@ -37,5 +37,6 @@
         Piece* pieceOnTile;
 
         pair<int, int> BoardPosition;
+
     };
     #endif //PLANSZA_H

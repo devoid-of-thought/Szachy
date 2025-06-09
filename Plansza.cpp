@@ -15,16 +15,27 @@ Tile::Tile():
     hasPiece{ false },
     isWhite {false},
     highlightBorder{ false },
-    pieceOnTile{ nullptr }
-{
+    pieceOnTile{ nullptr }{
 
 }
-
+Tile::Tile(const Tile &other)
+    : mTexture(nullptr), // don't copy texture pointer directly
+      mWidth(other.mWidth),
+      mHeight(other.mHeight),
+      hasPiece(other.hasPiece),
+      isWhite(other.isWhite),
+      highlightBorder(other.highlightBorder),
+      BoardPosition(other.BoardPosition),
+      pieceOnTile(nullptr) // fix later after deep-copy of pieces
+{
+    // texture should be reloaded later if needed
+}
 Tile::~Tile()
 {
     //Clean up texture
     destroy();
 }
+
 bool Tile::loadFromFile( std::string path )
 {
     //Clean up texture if it already exists
