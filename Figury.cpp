@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Window.h"
 
+
 //LTexture Implementation
 Piece::Piece(int row, int col, bool isWhite, int type,int indeks):
     //Initialize texture variables
@@ -15,7 +16,7 @@ Piece::Piece(int row, int col, bool isWhite, int type,int indeks):
     BoardPosition{row, col},
     White{isWhite},
     figure{type},
-    hasMoved{0},
+    hasMoved{false},
     isCaptured{false},
     wasPromoted{false},
 ind {indeks}
@@ -121,7 +122,6 @@ void Piece::pawn(vector<vector<Tile>> &Tiles) {
     int x = BoardPosition.first; // Column
     int y = BoardPosition.second; // Row
 
-    possibleMoves.clear(); // Make sure it's empty before adding
     if (!White) {
         // Black pawn (moves down the board, y+1)
         if (y + 1 < 8 && !Tiles[y + 1][x].hasPiece) {
@@ -161,32 +161,36 @@ void Piece::pawn(vector<vector<Tile>> &Tiles) {
     }
 }
 
-void Piece::Rook(vector<vector<Tile>> &Tiles) {
+// This is the corrected Rook move generation function.
+void Piece::Rook(vector<vector<Tile>>& Tiles) {
+    // Get the current position for easier access.
+    // BoardPosition.first is the column (x)
+    // BoardPosition.second is the row (y)
     int x = BoardPosition.first;
     int y = BoardPosition.second;
-    possibleMoves.clear();
-    // Up (increasing row)
-    for (int i = y + 1; i < 8; ++i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
+
+    // Clear any moves from a previous turn before generating new ones.
+    // (This is a good practice to add if it's not already in your generatePossibleMoves function)
+    // possibleMoves.clear();
+
+    // --- Scan UP (decreasing y, since row 0 is at the top) ---
+    for (int i = y - 1; i >= 0; --i) {
         if (Tiles[i][x].hasPiece) {
-            if (Tiles[i][x].pieceOnTile->White != White) {
-                possibleMoves.push_back({x, i});  // can capture enemy
+            // If the piece is an opponent, we can capture it.
+            if (Tiles[i][x].pieceOnTile->White != this->White) {
+                possibleMoves.push_back({x, i});
             }
-            break;  // either way, you stop scanning in this direction
+            // Stop scanning in this direction, as the path is blocked.
+            break;
         }
+        // The square is empty, so it's a valid move.
         possibleMoves.push_back({x, i});
     }
 
-    // Down (decreasing row)
-    for (int i = y - 1; i >= 0; --i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
+    // --- Scan DOWN (increasing y) ---
+    for (int i = y + 1; i < 8; ++i) {
         if (Tiles[i][x].hasPiece) {
-            if (Tiles[i][x].pieceOnTile->White != White) {
+            if (Tiles[i][x].pieceOnTile->White != this->White) {
                 possibleMoves.push_back({x, i});
             }
             break;
@@ -194,14 +198,10 @@ void Piece::Rook(vector<vector<Tile>> &Tiles) {
         possibleMoves.push_back({x, i});
     }
 
-    // Right (increasing column)
+    // --- Scan RIGHT (increasing x) ---
     for (int i = x + 1; i < 8; ++i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
         if (Tiles[y][i].hasPiece) {
-            if (Tiles[y][i].pieceOnTile->White != White) {
+            if (Tiles[y][i].pieceOnTile->White != this->White) {
                 possibleMoves.push_back({i, y});
             }
             break;
@@ -209,14 +209,10 @@ void Piece::Rook(vector<vector<Tile>> &Tiles) {
         possibleMoves.push_back({i, y});
     }
 
-    // Left (decreasing column)
+    // --- Scan LEFT (decreasing x) ---  // THIS BLOCK IS THE CORRECTED ONE
     for (int i = x - 1; i >= 0; --i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
         if (Tiles[y][i].hasPiece) {
-            if (Tiles[y][i].pieceOnTile->White != White) {
+            if (Tiles[y][i].pieceOnTile->White != this->White) {
                 possibleMoves.push_back({i, y});
             }
             break;
@@ -224,17 +220,12 @@ void Piece::Rook(vector<vector<Tile>> &Tiles) {
         possibleMoves.push_back({i, y});
     }
 }
-
 void Piece::Bishop(vector<vector<Tile>> &Tiles) {
     int x = BoardPosition.first;
     int y = BoardPosition.second;
-    possibleMoves.clear();
+
     // Down-right
     for (int i = 1; i < 8; ++i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
         if (y + i >= 8 || x + i >= 8) break;
         if (Tiles[y + i][x + i].hasPiece) {
             if (Tiles[y + i][x + i].pieceOnTile->White != White) {
@@ -247,28 +238,21 @@ void Piece::Bishop(vector<vector<Tile>> &Tiles) {
 
     // Up-left
     for (int i = 1; i < 8; ++i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
         if (y - i < 0 || x - i < 0) break;
-        if (Tiles[y - i][x + i].pieceOnTile&&Tiles[y - i][x - i].hasPiece) {
+        if (Tiles[y - i][x - i].hasPiece) {
             if (Tiles[y - i][x - i].pieceOnTile->White != White) {
                 possibleMoves.push_back({x - i, y - i});
             }
             break;
         }
+        possibleMoves.push_back({x - i, y - i});
     }
 
     // Up-right
     for (int i = 1; i < 8; ++i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
         if (y - i < 0 || x + i >= 8) break;
         if (Tiles[y - i][x + i].hasPiece) {
-            if (Tiles[y - i][x + i].pieceOnTile&&Tiles[y - i][x + i].pieceOnTile->White != White) {
+            if (Tiles[y - i][x + i].pieceOnTile->White != White) {
                 possibleMoves.push_back({x + i, y - i});
             }
             break;
@@ -278,10 +262,6 @@ void Piece::Bishop(vector<vector<Tile>> &Tiles) {
 
     // Down-left
     for (int i = 1; i < 8; ++i) {
-        if(y+ i >= 8 || x + i >= 8) break;
-
-        if (Tiles[y + i][x + i].pieceOnTile == nullptr) {
-            break;        }
         if (y + i >= 8 || x - i < 0) break;
         if (Tiles[y + i][x - i].hasPiece) {
             if (Tiles[y + i][x - i].pieceOnTile->White != White) {
@@ -292,11 +272,9 @@ void Piece::Bishop(vector<vector<Tile>> &Tiles) {
         possibleMoves.push_back({x - i, y + i});
     }
 }
-
 void Piece::Knight(vector<vector<Tile>> &Tiles) {
     int x = BoardPosition.first;
     int y = BoardPosition.second;
-    possibleMoves.clear();
     int knightMoves[8][2] = {
         {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
         {1, 2}, {1, -2}, {-1, 2}, {-1, -2}
@@ -313,60 +291,14 @@ void Piece::Knight(vector<vector<Tile>> &Tiles) {
 }
 
 void Piece::Queen(vector<vector<Tile>> &Tiles) {
-    possibleMoves.clear();
-    // Combine Rook and Bishop logic
+    // A queen combines the moves of a rook and a bishop
     Rook(Tiles);
     Bishop(Tiles);
 }
-bool Piece::isChecked(int color,
-vector<vector<Tile>> &Tiles, vector<vector<Piece>> &chessPieces,
-                     std::pair<int,int> targetSquare)
-{
-    int enemyColor = (color == 0) ? 1 : 0;
-
-    // First: check sliding pieces (rook/queen along ranks & files, bishop/queen along diagonals),
-    // knights, pawns, etc., by calling generatePossibleMoves on those only.
-
-    for (int i = 0; i < 16; ++i) {
-        Piece& enemy = chessPieces[enemyColor][i];
-        if (enemy.isCaptured==true)continue;
-        if (enemy.figure == 999)
-            continue;
-
-        enemy.possibleMoves.clear();
-        enemy.generatePossibleMoves(Tiles, chessPieces);
-
-        // If any of its “possibleMoves” hits targetSquare, we are in check.
-        for (auto& mv : enemy.possibleMoves) {
-            if (mv == targetSquare)
-                return true;
-        }
-    }
-
-    // Now explicitly check for an adjacent enemy king:
-    Piece& enemyKing = chessPieces[enemyColor][3]; // assuming index 3 is always the king
-        int kx = enemyKing.BoardPosition.first;
-        int ky = enemyKing.BoardPosition.second;
-        int tx = targetSquare.first;
-        int ty = targetSquare.second;
-
-        // Are they adjacent (but not the same square)?
-        if (std::abs(kx - tx) <= 1 && std::abs(ky - ty) <= 1 &&
-            !(kx == tx && ky == ty))
-        {
-            return true;
-        }
-
-
-    return false;
-}
-
 
 void Piece::King(vector<vector<Tile>> &Tiles, vector<vector<Piece>> &chessPieces) {
     int x = BoardPosition.first;
     int y = BoardPosition.second;
-    possibleMoves.clear();
-
     // Define all possible king moves
     int kingMoves[8][2] = {
         {1, 0}, {1, 1}, {0, 1}, {-1, 1},
@@ -380,10 +312,8 @@ void Piece::King(vector<vector<Tile>> &Tiles, vector<vector<Piece>> &chessPieces
         if (newX >= 0 && newX < 8 && newY >= 0 && newY < 8) {
             Tile &targetTile = Tiles[newY][newX];
             if (!targetTile.hasPiece || (targetTile.hasPiece && targetTile.pieceOnTile->White != White)) {
-                // Ensure the move does not place the king in check
-                if (!isChecked(White ? 0 : 1, Tiles, chessPieces, {newX, newY})) {
-                    possibleMoves.push_back({newX, newY});
-                }
+                possibleMoves.push_back({newX, newY});
+
             }
         }
     }
@@ -395,14 +325,14 @@ void Piece::King(vector<vector<Tile>> &Tiles, vector<vector<Piece>> &chessPieces
         if (!Tiles[row][5].hasPiece && !Tiles[row][6].hasPiece) {
             Tile &rookTile = Tiles[row][7];
             if (rookTile.hasPiece && rookTile.pieceOnTile->figure == 500 && rookTile.pieceOnTile->hasMoved == 0) {
-                possibleMoves.push_back({6, row});
+                possibleMoves.push_back({7, row});
             }
         }
         // Queenside castling
         if (!Tiles[row][1].hasPiece && !Tiles[row][2].hasPiece && !Tiles[row][3].hasPiece) {
             Tile &rookTile = Tiles[row][0];
             if (rookTile.hasPiece && rookTile.pieceOnTile->figure == 500 && rookTile.pieceOnTile->hasMoved == 0) {
-                possibleMoves.push_back({2, row});
+                possibleMoves.push_back({0, row});
             }
         }
     }

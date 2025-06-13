@@ -5,7 +5,16 @@
 #include <vector>
 #include <iostream>
 using namespace std;
-
+struct Ruch {
+    mutable Piece* pieceMoved;
+    mutable Piece* pieceCaptured;
+    pair<int, int> from;
+    pair<int, int> to;
+    bool wasPromoted;
+    int value;
+    Ruch(Piece* moved, Piece* captured, pair<int, int> start, pair<int, int> end, bool promoted,int val)
+          : pieceMoved(moved), pieceCaptured(captured), from(start), to(end), wasPromoted(promoted),value(val) {}
+};
 class Piece
 {
 public:
@@ -45,7 +54,7 @@ public:
     int mHeight;
     bool White;
     int figure;
-    int hasMoved;
+    bool hasMoved;
     bool isCaptured;
     bool wasPromoted;
     int ind;
