@@ -14,8 +14,6 @@ add_executable(Szachy
         Figury.cpp
         Window.cpp
         Window.h
-        konsola.cpp
-        konsola.h
 )
 
 # Output binaries in the build folder under Debug/Release

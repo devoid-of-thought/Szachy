@@ -5,34 +5,28 @@
 #include <iostream>
 #include "Window.h"
 
-//LTexture Implementation
 Tile::Tile():
-    //Initialize texture variables
     mTexture{ nullptr },
     mWidth{ 0 },
     mHeight{ 0 },
     BoardPosition{0,0},
     hasPiece{ false },
     isWhite {false},
-    highlightBorder{ false },
     pieceOnTile{ nullptr }{
 
 }
 Tile::Tile(const Tile &other)
-    : mTexture(nullptr), // don't copy texture pointer directly
+    : mTexture(nullptr),
       mWidth(other.mWidth),
       mHeight(other.mHeight),
       hasPiece(other.hasPiece),
       isWhite(other.isWhite),
-      highlightBorder(other.highlightBorder),
-      BoardPosition(other.BoardPosition),
-      pieceOnTile(nullptr) // fix later after deep-copy of pieces
+BoardPosition(other.BoardPosition),
+      pieceOnTile(nullptr)
 {
-    // texture should be reloaded later if needed
 }
 Tile::~Tile()
 {
-    //Clean up texture
     destroy();
 }
 
@@ -77,6 +71,7 @@ void Tile::destroy()
     mHeight = 0;
 }
 
+//renderowanie
 void Tile::render( float x, float y )
 {
     //Set texture position

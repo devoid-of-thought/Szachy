@@ -14,21 +14,23 @@ using namespace std;
 constexpr int kScreenWidth{512};
 constexpr int kScreenHeight{512};
 
-//Inicjalizacja zmiennych SDL
+//Inicjalizacja okna SDl
 SDL_Window *gWindow = nullptr;
 SDL_Renderer *gRenderer = nullptr;
 
+//Inicjalizacja tekstur
 SDL_Texture *whiteTileTexture = nullptr;
 SDL_Texture *blackTileTexture = nullptr;
 SDL_Texture *whiteHighlightTexture = nullptr;
 SDL_Texture *blackHighlightTexture = nullptr;
 
+//Inicjalizacja globalnych zmiennych
 Piece *selectedPiece = nullptr;
 Piece *temp = nullptr;
 bool isWhiteTurn = true;
+
+//Inicjalizacja planszy i figur
 vector<vector<Tile> > Board(8, vector<Tile>(8));
-
-
 vector<vector<Piece> > Pieces = {
     {
         Piece(0, 7, true, 500, 0), Piece(1, 7, true, 350, 1), Piece(2, 7, true, 351, 2), Piece(3, 7, true, 900, 3),
@@ -48,6 +50,7 @@ vector<vector<Piece> > Pieces = {
     }
 };
 
+//Funkja inicjalizująca SDL i tworząca okno
 bool init() {
     bool success{true};
 
@@ -60,22 +63,20 @@ bool init() {
             success = false;
         }
     }
-
-
     return success;
 }
-
+//Załadowanie tekstur
 
 bool loadMedia(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPieces) {
+    //Załadowanie tekstur planszy
     whiteTileTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/White_tile.png");
     blackTileTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/Black_tile.png");
-    whiteHighlightTexture = IMG_LoadTexture(
-        gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/White_Highlight.png");
-    blackHighlightTexture = IMG_LoadTexture(
-        gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/Black_Highlight.png");
+    whiteHighlightTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/White_Highlight.png");
+    blackHighlightTexture = IMG_LoadTexture(gRenderer, "/home/userbrigh/CLionProjects/Szachy/Tekstury/Black_Highlight.png");
 
     bool success{true};
 
+    //wczytanie tekstur figur szachowych
     const string basePath = "/home/userbrigh/CLionProjects/Szachy/Tekstury/";
     map<int, std::string> textureFiles = {
         {500, "Chess_rlt60.png"}, {350, "Chess_nlt60.png"}, {351, "Chess_blt60.png"},
@@ -84,6 +85,7 @@ bool loadMedia(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPieces
         {-900, "Chess_qdt60.png"}, {-999, "Chess_kdt60.png"}, {-100, "Chess_pdt60.png"}
     };
 
+    //przydzielenie tekstur do figur szachowych
     for (auto &row: chessPieces) {
         for (auto &piece: row) {
             if (textureFiles.find(piece.figure) != textureFiles.end()) {
@@ -91,7 +93,7 @@ bool loadMedia(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPieces
             }
         }
     }
-
+    //Inicjalizacja planszy
     const int tileSize = 64;
     for (int x = 0; x < 8; x++) {
         for (int y = 0; y < 8; y++) {
@@ -107,21 +109,10 @@ bool loadMedia(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPieces
     }
     return success;
 }
-
-template<typename T>
-void close(T &PngTexture) {
-    PngTexture.destroy();
-
-    SDL_DestroyRenderer(gRenderer);
-    gRenderer = nullptr;
-    SDL_DestroyWindow(gWindow);
-    gWindow = nullptr;
-
-    SDL_Quit();
-}
-
+//funkcja renderująca planszę i figury szachowe
 void renderBoard(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPieces) {
     const int tileSize = Tiles[0][0].getHeight();
+    //czyszczenie atrybutów kafelków
     for (int y = 7; y >= 0; --y) {
         for (int x = 7; x >= 0; --x) {
             if ((x + y) % 2) {
@@ -129,28 +120,23 @@ void renderBoard(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPiec
             } else {
                 Tiles[y][x].mTexture = whiteTileTexture;
             }
-            Tiles[y][x].highlightBorder = false;
-
             Tiles[y][x].hasPiece = false;
             Tiles[y][x].isWhite = false;
             Tiles[y][x].pieceOnTile = nullptr;
-
+            //jeśli jest zaznaczona figura, to podświetlenie możliwych ruchów
             if (selectedPiece) {
                 for (auto &move: selectedPiece->possibleMoves) {
                     if (move.first == y && move.second == x) {
-                        Tiles[y][x].mTexture =
-                                ((x + y) % 2)
-                                    ? blackHighlightTexture
-                                    : whiteHighlightTexture;
+                        Tiles[y][x].mTexture =((x + y) % 2)? blackHighlightTexture: whiteHighlightTexture;
                         break;
                     }
                 }
             }
-
+            //renderowanie kafelków
             Tiles[y][x].render(y * tileSize, x * tileSize);
         }
     }
-
+    //renderowanie figur szachowych
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j < 16; j++) {
             Piece &p = chessPieces[i][j];
@@ -158,6 +144,7 @@ void renderBoard(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPiec
                 int tx = p.BoardPosition.first;
                 int ty = p.BoardPosition.second;
                 p.render(tx * tileSize, ty * tileSize);
+                //przywrócenie wiadomości o figurzach na kafelkach
                 Tiles[ty][tx].hasPiece = true;
                 Tiles[ty][tx].pieceOnTile = &p;
                 Tiles[ty][tx].isWhite = p.White;
@@ -165,7 +152,7 @@ void renderBoard(vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPiec
         }
     }
 }
-
+//Wyśiwietlenie planszy i figur szachowych w celu debugowania
 void Debug(vector<vector<Tile> > &Tiles) {
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
@@ -201,20 +188,22 @@ void Debug(vector<vector<Tile> > &Tiles) {
     }
     cout << "------------------------" << endl;
 }
+//Degradacja figury w przypadku cofnięcia ruchu
 void Unpromote(Piece *piece) {
-    if (piece->figure == 100 && (piece->BoardPosition.second == 0 && piece->White)) {
-        piece->figure = 900;
+    if (piece->figure == 900 && (piece->BoardPosition.second == 0 && piece->White)) {
+        piece->figure = 100;
         piece->wasPromoted = false;
         piece->loadFromFile(
             "/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_pdt60.png");
-    } else if (piece->figure == -100 && (piece->BoardPosition.second == 7 && !piece->White)) {
-        piece->figure = -900;
+    } else if (piece->figure == -900 && (piece->BoardPosition.second == 7 && !piece->White)) {
+        piece->figure = -100;
         piece->wasPromoted = false;
         piece->loadFromFile(
             "/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_pdt60.png");
     }
 }
 
+//Promocja pionka w hetmana
 void Promotion(Piece *piece) {
     if (piece->figure == 100 && (piece->BoardPosition.second == 0 && piece->White)) {
         piece->figure = 900;
@@ -228,17 +217,20 @@ void Promotion(Piece *piece) {
             "/home/userbrigh/CLionProjects/Szachy/Tekstury/Chess_qdt60.png");
     }
 }
-
+//Aktualizacja stanu planszy w przypadku zmiany pozycji figur
 void updateBoardStateFromPieces(vector<vector<Tile> > &tiles, vector<vector<Piece> > &chessPieces) {
+    //czyszczenie tablicy
     for (int y = 0; y < 8; ++y) {
         for (int x = 0; x < 8; ++x) {
             tiles[y][x].hasPiece = false;
+            tiles[y][x].isWhite = false;
             tiles[y][x].pieceOnTile = nullptr;
         }
     }
 
-    for (auto &colorSet: chessPieces) {
-        for (auto &p: colorSet) {
+    for (auto &color: chessPieces) {
+        for (auto &p: color) {
+            //jeżeli figura nie jest zbita, to zaktualizowanie kafelka, na którym się znajduje
             if (!p.isCaptured) {
                 int x = p.BoardPosition.first;
                 int y = p.BoardPosition.second;
@@ -251,18 +243,21 @@ void updateBoardStateFromPieces(vector<vector<Tile> > &tiles, vector<vector<Piec
         }
     }
 }
-
+//Funkcja wykonująca ruch figury na planszy
 void Move(Piece *piece, pair<int, int> from, pair<int, int> to, vector<vector<Tile> > &Tiles) {
     piece->BoardPosition = to;
     updateBoardStateFromPieces(Tiles, Pieces);
 }
 
-
+//generacja wszystkich możliwych ruchów dla danego koloru
 vector<Ruch> GenerateAllMoves(int color, vector<vector<Piece> > &chessPieces, vector<vector<Tile> > &Tiles) {
     vector<Ruch> Moves;
+    // Dla każdej figury generowanie możliwych ruchów
     for (int i = 0; i < 16; ++i) {
         Piece &p = chessPieces[color][i];
+        //jeżeli figura jest zbita, to pomijamy ją
         if (p.isCaptured) continue;
+        //generujemy możliwe ruchy dla danej figury
         p.generatePossibleMoves(Tiles, chessPieces);
         vector<pair<int, int> > &possible = p.possibleMoves;
         for (int i = 0; i < possible.size(); ++i) {
@@ -274,45 +269,39 @@ vector<Ruch> GenerateAllMoves(int color, vector<vector<Piece> > &chessPieces, ve
     return Moves;
 }
 
-
-bool isSquareAttacked(int x, int y, bool isEnemyWhite, vector<vector<Tile> > &tiles,
-                      vector<vector<Piece> > &chessPieces) {
+//Sprawdzenie czy dany kafelek jest atakowany przez przeciwnika
+bool isSquareAttacked(int x, int y, bool isEnemyWhite, vector<vector<Tile> > &tiles,vector<vector<Piece> > &chessPieces) {
+    // wybranie koloru przeciwnika i wygenerowanie dla niego wszystkich możliwych ruchów
     int enemyColor = isEnemyWhite ? 0 : 1;
-
     vector<Ruch> attackerMoves = GenerateAllMoves(enemyColor, chessPieces, tiles);
-
+    // sprawdzenie czy któryś z ruchów przeciwnika prowadzi do danego kafelka
     for (const Ruch &move: attackerMoves) {
         if (move.to.first == x && move.to.second == y) {
             return true;
         }
     }
-
     return false;
 }
 
-
+//Generowanie legalnych ruchów dla danego koloru
 vector<Ruch> GenerateLegalMoves(int color, vector<vector<Piece> > &chessPieces, vector<vector<Tile> > &Tiles) {
-    vector<Ruch> allPseudoMoves = GenerateAllMoves(color, chessPieces, Tiles);
+    //wygenerowanie wszystkich możliwych ruchów dla danego koloru
+    vector<Ruch> allMoves = GenerateAllMoves(color, chessPieces, Tiles);
     vector<Ruch> legalMoves;
-
-    for (Ruch &testMove: allPseudoMoves) {
+    //sprawdzenie czy dany ruch nie prowadzi do szacha króla
+    for (Ruch &testMove: allMoves) {
         pair<int, int> originalPos = testMove.pieceMoved->BoardPosition;
         Piece* capturedPiece = testMove.pieceCaptured;
         bool originalHasMoved = testMove.pieceMoved->hasMoved;
         bool capturedOriginalHasMoved = capturedPiece ? capturedPiece->hasMoved : false;
-
-
         if (capturedPiece) { capturedPiece->isCaptured = true; }
         testMove.pieceMoved->BoardPosition = testMove.to;
         testMove.pieceMoved->hasMoved = true;
         updateBoardStateFromPieces(Tiles, chessPieces);
-
-
         Piece &myKing = chessPieces[color][4];
         bool isOpponentWhite = (color == 1);
         bool isKingInCheck = isSquareAttacked(myKing.BoardPosition.first, myKing.BoardPosition.second, isOpponentWhite, Tiles, chessPieces);
-
-
+        //przywrócenie stanu planszy i figur
         testMove.pieceMoved->BoardPosition = originalPos;
         testMove.pieceMoved->hasMoved = originalHasMoved;
         if (capturedPiece) {
@@ -321,34 +310,37 @@ vector<Ruch> GenerateLegalMoves(int color, vector<vector<Piece> > &chessPieces, 
         }
         updateBoardStateFromPieces(Tiles, chessPieces);
 
-
+        //jeżeli ruch nie prowadzi do szacha króla, to dodajemy go do listy legalnych ruchów
         if (!isKingInCheck) {
             legalMoves.push_back(testMove);
         }
     }
     return legalMoves;
 }
-
-void Capture(Piece *piece, int i, pair<int, int> clickedPosition, vector<vector<Tile> > &Tiles,
-             vector<vector<Piece> > &chessPieces) {
+//Zbice figury przeciwnika
+void Capture(Piece *piece, int i, pair<int, int> clickedPosition, vector<vector<Tile> > &Tiles,vector<vector<Piece> > &chessPieces) {
+    // Sprawdzenie koloru przeciwnika
     int enemyColor = (piece->White) ? 1 : 0;
-    chessPieces[enemyColor][i].isCaptured = true;
+    //Aktualizacja kafelka zbitej figury
     Tiles[chessPieces[enemyColor][i].BoardPosition.second][chessPieces[enemyColor][i].
         BoardPosition.first].hasPiece = false;
     Tiles[chessPieces[enemyColor][i].BoardPosition.second][chessPieces[enemyColor][i].
         BoardPosition.first].isWhite = false;
     Tiles[chessPieces[enemyColor][i].BoardPosition.second][chessPieces[enemyColor][i].
         BoardPosition.first].pieceOnTile = nullptr;
+    //przesunięcie naszej figury na kafelek docelowy
     Move(piece, piece->BoardPosition, clickedPosition, Tiles);
+    //zmienienie pozycji zbitej figury na 8,8 i usunięcie jej z planszy
+    chessPieces[enemyColor][i].isCaptured = true;
     chessPieces[enemyColor][i].BoardPosition = {8, 8};
 }
 
-
-void move_black(Ruch move, vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPieces) {
+//ruch w ruchu ai
+void move_black(Ruch move, vector<vector<Tile> > &Tiles, vector<vector<Piece>> &chessPieces) {
     Piece* pieceToMove = move.pieceMoved;
     pair<int, int> to = move.to;
-
-    bool isCastling = (pieceToMove->figure == -999 && abs(to.first - pieceToMove->BoardPosition.first) == 2);
+    //sprawdzenie czy ai wykonał roszadę
+    bool isCastling = (pieceToMove->figure == -999 && (7 == to.first || 0 == to.first)&&pieceToMove->hasMoved==false);
     if (isCastling) {
         if (to.first == 6) {
             Piece* rook = Tiles[0][7].pieceOnTile;
@@ -364,19 +356,19 @@ void move_black(Ruch move, vector<vector<Tile> > &Tiles, vector<vector<Piece> > 
             }
         }
     }
-
+    //jeżeli ai wykonał zbicie figury przeciwnika, to zmieniamy jej status na zbita
     if (move.pieceCaptured) {
         move.pieceCaptured->isCaptured = true;
     }
-
+    //przesunięcie figury na kafelek docelowy
     Move(pieceToMove, pieceToMove->BoardPosition, to, Tiles);
     pieceToMove->hasMoved = true;
-
+    //sprawdzenie czy pionek, jest promowany
     Promotion(pieceToMove);
-
+    //koniec tury
     isWhiteTurn = true;
 }
-
+//zwrócenie stanu planszy
 int evaluate(vector<vector<Piece> > &chessPieces) {
     int boardValue = 0;
     for (int i = 0; i < 2; ++i) {
@@ -388,155 +380,103 @@ int evaluate(vector<vector<Piece> > &chessPieces) {
     }
     return boardValue;
 }
-
-std::pair<vector<vector<Piece> >, vector<vector<Tile> > >
-createBoardStateCopy(const vector<vector<Piece> > &originalPieces, const vector<vector<Tile> > &originalTiles) {
-    vector<vector<Piece> > newPieces = originalPieces;
-    vector<vector<Tile> > newTiles = originalTiles;
-
-    for (auto &colorSet: newPieces) {
-        for (auto &piece: colorSet) {
-            if (!piece.isCaptured) {
-                int x = piece.BoardPosition.first;
-                int y = piece.BoardPosition.second;
-                if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-                    newTiles[y][x].pieceOnTile = &piece;
-                }
-            }
-        }
-    }
-    return {newPieces, newTiles};
-}
-
-void UndoMove(Ruch ruch, vector<vector<Tile> > &Tiles, vector<vector<Piece> > &chessPieces) {
-    Piece *piece = ruch.pieceMoved;
-    pair<int, int> lastCapturedPos = piece->BoardPosition;
-    Tiles[piece->BoardPosition.second][piece->BoardPosition.first].hasPiece = false;
-    Tiles[piece->BoardPosition.second][piece->BoardPosition.first].isWhite = false;
-    Tiles[piece->BoardPosition.second][piece->BoardPosition.first].pieceOnTile = nullptr;
-
-    piece->BoardPosition = ruch.from;
-    Tiles[piece->BoardPosition.second][piece->BoardPosition.first].hasPiece = true;
-    Tiles[piece->BoardPosition.second][piece->BoardPosition.first].pieceOnTile = piece;
-    Tiles[piece->BoardPosition.second][piece->BoardPosition.first].isWhite = piece->White;
-
-    Piece *captured = ruch.pieceCaptured;
-    if (captured != nullptr) {
-        captured->isCaptured = false;
-        auto [cx, cy] = ruch.to;
-        Tiles[cy][cx].hasPiece = true;
-        Tiles[cy][cx].isWhite = captured->White;
-        Tiles[cy][cx].pieceOnTile = captured;
-    }
-
-    if (ruch.wasPromoted) {
-        Unpromote(piece);
-    }
-}
-
-vector<Ruch> BESTMOVES;
-int INF = 10000000;
-
-int negaMax(int color, int alpha, int beta, int depthLeft, vector<vector<Piece> > &chessPieces,
-            vector<vector<Tile> > &tiles) {
+//algorytm minmax z alpha beta pruning
+int negaMax(int color, int alpha, int beta, int depthLeft, vector<vector<Piece> > &chessPieces,vector<vector<Tile> > &tiles) {
+    //jeżeli osiągnięto maksymalną głębokość lub ruch prowadzi do szach mata, to zwrócenie wartości planszy
     if (depthLeft == 0) {
         return evaluate(chessPieces);
     }
-
     vector<Ruch> moves = GenerateLegalMoves(color, chessPieces, tiles);
     if (moves.empty()) {
         return -1000000;
     }
-
+    //Dla każdego możliwego ruchu wykonanie ruchu, a następnie rekurencyjne wywołanie funkcji negaMax
     for (Ruch &m: moves) {
         Piece *captured = m.pieceCaptured;
         if (captured) captured->isCaptured = true;
+        //wykonanie ruchu
         Move(m.pieceMoved, m.from, m.to, tiles);
-
+        //sprawdzenie jaki potencjał ma ruch
         int score = -negaMax(1 - color, -beta, -alpha, depthLeft - 1, chessPieces, tiles);
-
+        //cofnięcie ruchu
         Move(m.pieceMoved, m.to, m.from, tiles);
         if (captured) {
             captured->isCaptured = false;
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].pieceOnTile = captured;
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].hasPiece = true;
         }
-
+        //jeżeli potencjał ruchu jest większy niż beta, to zwrócenie beta, ponieważ jest to ruch gorszy od najlepszego ruchu przeciwnika ergo. przeciwnik go nie wybierze
         if (score >= beta) {
             return beta;
         }
+        //jeżeli potencjał ruchu jest większy niż alpha, to aktualizacja alpha
         if (score > alpha) {
             alpha = score;
         }
+
     }
     return alpha;
 }
 
-
+//Sztuczna inteligencja dla czarnykh figur
 void SI(vector<vector<Tile> > &tiles, vector<vector<Piece> > &chessPieces) {
+    //maksymalna głębokość przeszukiwania drzewa ruchów
     const int MAX_DEPTH = 3;
-    int rootColor = 1;
-
-    vector<Ruch> possibleMoves = GenerateLegalMoves(rootColor, chessPieces, tiles);
-
+    //wygenerowanie wszystkich możliwych ruchów z obecnej pozycji
+    vector<Ruch> possibleMoves = GenerateLegalMoves(1, chessPieces, tiles);
+    //inicjalizacja najlepszego znalezionego ruchu i
     int bestScore = -9999999;
     vector<Ruch> bestMovesList;
-
+    //sprawdzenie, każdego możliwego ruchu
     for (Ruch &m: possibleMoves) {
         Piece *captured = m.pieceCaptured;
         if (captured) captured->isCaptured = true;
+        //wykonanie ruchu
         Move(m.pieceMoved, m.from, m.to, tiles);
-
+        //sprawdzenie jaki potencjał ma ruch
         int score = -negaMax(0, -9999999, 9999999, MAX_DEPTH - 1, chessPieces, tiles);
-
+        //cofnięcie ruchu
         Move(m.pieceMoved, m.to, m.from, tiles);
         if (captured) {
             captured->isCaptured = false;
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].pieceOnTile = captured;
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].hasPiece = true;
         }
-
+        //jeżeli potencjał ruchu jest większy niż najlepszy znaleziony ruch, to aktualizacja najlepszego ruchu
         if (score > bestScore) {
             bestScore = score;
             bestMovesList.clear();
             bestMovesList.push_back(m);
         } else if (score == bestScore) {
+            //jeżeli potencjał ruchu jest równy najlepszym znalezionym ruchom, to dodanie go do listy najlepszych ruchów
             bestMovesList.push_back(m);
         }
     }
-
-    Ruch chosenMove = bestMovesList[0];
-    if (!bestMovesList.empty()) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dst(0, bestMovesList.size() - 1);
-
-        chosenMove = bestMovesList[dst(gen)];
-    }
-
-    cout << "AI found " << bestMovesList.size() << " equally good move(s) with a score of: " << bestScore << endl;
+    //Wybranie losowego ruchu z listy najlepszych ruchów
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> dst(0, bestMovesList.size() - 1);
+    Ruch chosenMove = bestMovesList[dst(gen)];
+    cout << "AI found " << bestMovesList.size() << " equally good move(s) with a score of: " << bestScore*-1 << endl;
     cout << "Chosen move: " << chosenMove.pieceMoved->figure << " from "
             << chosenMove.from.first << "," << chosenMove.from.second << " to "
             << chosenMove.to.first << "," << chosenMove.to.second << endl;
+    //wykonanie wybranego ruchu
     move_black(chosenMove, tiles, chessPieces);
-
 }
 
-
-
+//Sprawdzenie czy jest szach mat lub pat
 bool isCheckmate(int color, vector<vector<Piece> > &chessPieces, vector<vector<Tile> > &Tiles) {
     Piece &myKing = chessPieces[color][4];
     bool opponentIsWhite = (color == 1);
 
-    if (!isSquareAttacked(myKing.BoardPosition.first, myKing.BoardPosition.second, opponentIsWhite, Tiles,
-                          chessPieces)) {
+    if (!isSquareAttacked(myKing.BoardPosition.first, myKing.BoardPosition.second, opponentIsWhite, Tiles,chessPieces)) {
         return false;
     }
 
     vector<Ruch> legalMoves = GenerateLegalMoves(color, chessPieces, Tiles);
     return legalMoves.empty();
 }
-
 bool isStalemate(int color, vector<vector<Piece> > &chessPieces, vector<vector<Tile> > &Tiles) {
     Piece &myKing = chessPieces[color][4];
     bool opponentIsWhite = (color == 1);
@@ -553,30 +493,35 @@ bool isStalemate(int color, vector<vector<Piece> > &chessPieces, vector<vector<T
 
 
 int main(int argc, char *args[]) {
+    //inicjalizacja SDL i załadowanie mediów
     if (!init()) return 1;
     if (!loadMedia(Board, Pieces)) return 2;
 
+    //inicjalizacja zmiennych końca gry
     bool quit{false};
     bool gameOver{false};
-
+    //obsługa zdarzeń SDL
     SDL_Event e;
     SDL_zero(e);
 
     while (!quit) {
+        //dopóki gra trwa, sprawdzanie zdarzeń
         while (SDL_PollEvent(&e)) {
+            //jeżeli zdarzenie to zdarzenie zamknięcia okna, to kończymy grę
             if (e.type == SDL_EVENT_QUIT) {
                 quit = true;
             }
-
+            //ruch białych figur
             if (!gameOver && isWhiteTurn) {
+                //jeżeli kliknięcie myszką, to sprawdzenie wciśniętego kafelka
                 if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN && e.button.button == SDL_BUTTON_LEFT) {
                     int tileSize = 64;
                     int clickedX = e.button.x / tileSize;
                     int clickedY = e.button.y / tileSize;
-
+                    pair<int, int> clickedPos = {clickedX, clickedY};
+                    //sprawdzenie czy kliknięty kafelek jest w zakresie planszy
                     if (clickedX >= 0 && clickedX < 8 && clickedY >= 0 && clickedY < 8) {
-                        pair<int, int> clickedPos = {clickedX, clickedY};
-
+                        //jeżeli jest zaznaczona figura, to sprawdzenie czy kliknięty kafelek jest jednym z możliwych ruchów
                         if (selectedPiece) {
                             bool isValidMove = false;
                             for (const auto &move: selectedPiece->possibleMoves) {
@@ -585,15 +530,13 @@ int main(int argc, char *args[]) {
                                     break;
                                 }
                             }
-
+                            //jeżeli kliknięty kafelek jest jednym z możliwych ruchów, to wykonanie ruchu
                             if (isValidMove) {
+                                //zapisanie orginalnych pozycji figur
                                 pair<int, int> originalPos = selectedPiece->BoardPosition;
                                 Piece *targetPiece = Board[clickedY][clickedX].pieceOnTile;
-
-                                bool isCastlingAttempt = (
-                                    selectedPiece->figure == 999 && targetPiece && targetPiece->figure == 500 &&
-                                    targetPiece->White == selectedPiece->White);
-
+                                //jeżeli wykonujemy roszadę, to wykonanie roszad
+                                bool isCastlingAttempt = (selectedPiece->figure == 999 && targetPiece && targetPiece->figure == 500 && targetPiece->White == selectedPiece->White);
                                 if (isCastlingAttempt) {
                                     if (targetPiece->BoardPosition.first == 7) {
                                         Move(selectedPiece, originalPos, {6, originalPos.second}, Board);
@@ -612,35 +555,34 @@ int main(int argc, char *args[]) {
                                     isWhiteTurn = false;
                                     selectedPiece = nullptr;
                                 } else {
+                                    //wykonanie ruchu i sprawdzenie czy nie zostawiamy króla w szachu
                                     if (targetPiece) { targetPiece->isCaptured = true; }
                                     Move(selectedPiece, originalPos, clickedPos, Board);
-
                                     selectedPiece->hasMoved = true;
-
                                     Piece &whiteKing = Pieces[0][4];
                                     bool isKingInCheck = isSquareAttacked(
                                         whiteKing.BoardPosition.first, whiteKing.BoardPosition.second, false, Board,
                                         Pieces);
-
+                                    //jeżeli król w szachu to cofnięcie ruchu i wyświetlenie komunikatu
                                     if (isKingInCheck) {
-                                        cout << "Illegal move: You cannot leave your king in check." << endl;
-
+                                        cout << "RUCH NIEPOPRAWNY: KRÓL W SZACHU." << endl;
                                         selectedPiece->BoardPosition = originalPos;
-
                                         if (targetPiece) { targetPiece->isCaptured = false; }
                                         updateBoardStateFromPieces(Board, Pieces);
                                         selectedPiece = nullptr;
                                     } else {
+                                        //jeżeli ruch jest poprawny, to sprawdzenie czy pionek jest promowany
                                         Promotion(selectedPiece);
                                         isWhiteTurn = false;
                                         selectedPiece = nullptr;
                                     }
                                 }
                             } else {
+                                //odznaczeni figury, jeżeli kliknięty kafelek nie jest jednym z możliwych ruchów
                                 selectedPiece = nullptr;
                             }
-
                         } else {
+                            //jeżeli nie ma zaznaczonej figury, to sprawdzenie czy kliknięty kafelek zawiera białą figurę
                             Piece *clickedPiece = Board[clickedY][clickedX].pieceOnTile;
                             if (clickedPiece && clickedPiece->White) {
                                 selectedPiece = clickedPiece;
@@ -657,9 +599,10 @@ int main(int argc, char *args[]) {
                 }
             }
         }
-
         if (!gameOver) {
+            //ruch czarnych figur
             if (!isWhiteTurn) {
+                //sprawdzenie czy czarne figury mają ruch
                 if (isCheckmate(1, Pieces, Board)) {
                     cout << "CHECKMATE! White wins!" << endl;
                     gameOver = true;
@@ -667,7 +610,7 @@ int main(int argc, char *args[]) {
                     cout << "STALEMATE! It's a draw." << endl;
                     gameOver = true;
                 }
-
+                //wykonanie ruchu przez algorytm sztucznej inteligencji
                 if (!gameOver) {
                     SI(Board, Pieces);
                     if (isCheckmate(0, Pieces, Board)) {
@@ -680,10 +623,12 @@ int main(int argc, char *args[]) {
                 }
             }
         }
+        //renderowanie planszy i figur
         SDL_RenderClear(gRenderer);
         SDL_SetRenderDrawColor(gRenderer, 0x0, 0x0, 0x0, 0xFF);
         renderBoard(Board, Pieces);
         SDL_RenderPresent(gRenderer);
+        //jeżeli koniec gry, to wyświetlenie komunikatu i zakończenie programu
         if (gameOver) {
             SDL_Delay(9999);
             SDL_Quit();

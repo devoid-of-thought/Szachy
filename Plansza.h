@@ -9,31 +9,23 @@
     class Tile
     {
     public:
-        //Initializes texture variables
         Tile();
-    Tile(const Tile &other);
-        //Cleans up texture variables
+        Tile(const Tile &other);
         ~Tile();
 
-
-        //Loads texture from disk
         bool loadFromFile( std::string path );
 
-        //Cleans up texture
         void destroy();
         void render( float x, float y );
 
-        //Gets texture dimensions
         int getWidth();
         int getHeight();
         SDL_Texture* mTexture;
 
-        //Texture dimensions
         int mWidth;
         int mHeight;
         bool hasPiece;
         bool isWhite;
-        bool highlightBorder;
         Piece* pieceOnTile;
 
         pair<int, int> BoardPosition;

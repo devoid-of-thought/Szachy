@@ -77,13 +77,6 @@ build CMakeFiles/Szachy.dir/Window.cpp.o: CXX_COMPILER__Szachy_unscanned_Debug /
   OBJECT_DIR = CMakeFiles/Szachy.dir
   OBJECT_FILE_DIR = CMakeFiles/Szachy.dir
 
-build CMakeFiles/Szachy.dir/konsola.cpp.o: CXX_COMPILER__Szachy_unscanned_Debug /home/userbrigh/CLionProjects/Szachy/konsola.cpp || cmake_object_order_depends_target_Szachy
-  DEP_FILE = CMakeFiles/Szachy.dir/konsola.cpp.o.d
-  FLAGS = -g -std=gnu++17 -fPIE -fdiagnostics-color=always
-  INCLUDES = -I/home/userbrigh/CLionProjects/Szachy/SDL/include -I/home/userbrigh/CLionProjects/Szachy/SDL_image/include -I/home/userbrigh/CLionProjects/Szachy/SDL_ttf/include -I/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL/include-revision
-  OBJECT_DIR = CMakeFiles/Szachy.dir
-  OBJECT_FILE_DIR = CMakeFiles/Szachy.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Szachy
@@ -92,7 +85,7 @@ build CMakeFiles/Szachy.dir/konsola.cpp.o: CXX_COMPILER__Szachy_unscanned_Debug 
 #############################################
 # Link the executable Szachy
 
-build Szachy: CXX_EXECUTABLE_LINKER__Szachy_Debug CMakeFiles/Szachy.dir/main.cpp.o CMakeFiles/Szachy.dir/Plansza.cpp.o CMakeFiles/Szachy.dir/Figury.cpp.o CMakeFiles/Szachy.dir/Window.cpp.o CMakeFiles/Szachy.dir/konsola.cpp.o | SDL_image/libSDL3_image.so.0.3.0 SDL_ttf/libSDL3_ttf.so.0.3.0 SDL/libSDL3.so.0.3.0 /home/userbrigh/CLionProjects/Szachy/SDL/src/dynapi/SDL_dynapi.sym || SDL/libSDL3.so SDL_image/libSDL3_image.so SDL_ttf/libSDL3_ttf.so SDL_image/libSDL3_image.so SDL_ttf/libSDL3_ttf.so SDL/libSDL3.so
+build Szachy: CXX_EXECUTABLE_LINKER__Szachy_Debug CMakeFiles/Szachy.dir/main.cpp.o CMakeFiles/Szachy.dir/Plansza.cpp.o CMakeFiles/Szachy.dir/Figury.cpp.o CMakeFiles/Szachy.dir/Window.cpp.o | SDL_image/libSDL3_image.so.0.3.0 SDL_ttf/libSDL3_ttf.so.0.3.0 SDL/libSDL3.so.0.3.0 /home/userbrigh/CLionProjects/Szachy/SDL/src/dynapi/SDL_dynapi.sym || SDL/libSDL3.so SDL_image/libSDL3_image.so SDL_ttf/libSDL3_ttf.so SDL_image/libSDL3_image.so SDL_ttf/libSDL3_ttf.so SDL/libSDL3.so
   FLAGS = -g
   LINK_LIBRARIES = -Wl,-rpath,/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_image:/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL_ttf:/home/userbrigh/CLionProjects/Szachy/cmake-build-debug/SDL  SDL_image/libSDL3_image.so.0.3.0  SDL_ttf/libSDL3_ttf.so.0.3.0  SDL/libSDL3.so.0.3.0
   OBJECT_DIR = CMakeFiles/Szachy.dir

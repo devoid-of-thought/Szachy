@@ -18,23 +18,17 @@ struct Ruch {
 class Piece
 {
 public:
-    // Initializes texture variables
     Piece(int row = 0, int col = 0, bool isWhite = true, int type = 0,int indeks=0);
 
-    // Cleans up texture variables
     ~Piece();
 
-    // Loads texture from disk
     bool loadFromFile(std::string path);
 
-    // Cleans up texture
     void destroy();
     void handleEvent(SDL_Event* e, vector<vector<Tile>> &Tiles, vector<vector<Piece>> &chessPieces);
 
-    // Draws texture
     void render(float x, float y);
     Piece(const Piece &other);
-    // Gets texture dimensions
     int getWidth();
     int getHeight();
     SDL_Texture* mTexture;
@@ -49,7 +43,6 @@ public:
     void resetPossibleMoves();
     void generatePossibleMoves(vector<vector<Tile>> &Tiles, vector<vector<Piece>> &chessPieces);
 
-    // Texture dimensions
     int mWidth;
     int mHeight;
     bool White;
