@@ -429,7 +429,17 @@ int negaMax(int color, int alpha, int beta, int depthLeft, vector<vector<Piece> 
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].pieceOnTile = captured;
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].hasPiece = true;
         }
+        //jeżeli potencjał ruchu jest większy niż beta, to zwrócenie beta, ponieważ jest to ruch gorszy od najlepszego ruchu przeciwnika ergo. przeciwnik go nie wybierze
+        if (score >= beta) {
+            return beta;
+        }
+        //jeżeli potencjał ruchu jest większy niż alpha, to aktualizacja alpha
+        if (score > alpha) {
+            alpha = score;
+        }
+
     }
+    return alpha;
 }
 
 //Sztuczna inteligencja dla czarnykh figur
@@ -715,12 +725,12 @@ void game(int depth) {
 void test(int depth,int runs_per_test ) {
     map<string, string> fens_to_test = {
         {"Starting", "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"},
-        {"Developed", "rn2kb1r/pp3ppp/2p1pn2/q3Nb2/2BP2P1/2N5/PPP2P1P/R1BQK2R b KQkq - 0 8"},
+        {"Sicilian", "rn2kb1r/pp3ppp/2p1pn2/q3Nb2/2BP2P1/2N5/PPP2P1P/R1BQK2R b KQkq - 0 8"},
         {"Middlegame", "1r3rk1/1pp2ppp/p7/2PPQ3/2n1P3/6P1/5PBP/3R2K1 b - - 0 26"},
         {"Endgame", "b4r2/p3R1PP/1p5k/2p4P/1P1p2n1/8/P7/6K1 b - - 0 48"}
     };
-    ofstream results_file("/home/userbrigh/CLionProjects/Szachy/szachy_test_depth_" + to_string(depth) + "_3.csv");
-    ofstream avg_file("/home/userbrigh/CLionProjects/Szachy/szachy_avg_depth_" + to_string(depth) + "_3.csv");
+    ofstream results_file("/home/userbrigh/CLionProjects/Szachy/szachy_test_depth_" + to_string(depth) + ".csv");
+    ofstream avg_file("/home/userbrigh/CLionProjects/Szachy/szachy_avg_depth_" + to_string(depth) + ".csv");
     if (!results_file.is_open()) {
         cerr << "Error: Could not open results file for writing." << endl;
         return;
@@ -878,9 +888,21 @@ int main(int argc, char *args[]) {
     } else if (menuChoice == -1) {
         SDL_HideWindow(gWindow);
         cout << "TESTY" << endl;
-        test(1, 10);
-        test(3,10);
-        test(5,5);
+        map<string, string> fens_to_test = {
+            {"Starting", "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"},
+            {"Sicilian", "rn2kb1r/pp3ppp/2p1pn2/q3Nb2/2BP2P1/2N5/PPP2P1P/R1BQK2R b KQkq - 0 8"},
+            {"Middlegame", "1r3rk1/1pp2ppp/p7/2PPQ3/2n1P3/6P1/5PBP/3R2K1 b - - 0 26"},
+            {"Endgame", "b4r2/p3R1PP/1p5k/2p4P/1P1p2n1/8/P7/6K1 b - - 0 48"}
+        };
+        for(auto& fenn : fens_to_test) {
+            string fen = fenn.second;
+            cout << "Testing position: " << fenn.first << endl;
+            count_leaves(1, fen);
+            count_leaves(3, fen);
+            count_leaves(5, fen);
+            count_leaves(7, fen);
+        }
+
     }
     close();
     return 0;
