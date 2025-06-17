@@ -186,6 +186,6 @@
 -- SDL3_ttf backends:
 -- - enabled:  freetype
 -- - disabled: harfbuzz plutosvg
--- Configuring done (0.5s)
+-- Configuring done (0.6s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/userbrigh/CLionProjects/Szachy/cmake-build-debug

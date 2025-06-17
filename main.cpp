@@ -1,5 +1,6 @@
 #include "SDL_image/include/SDL3_image/SDL_image.h"
 #include "Plansza.h"
+#include "SDL_ttf/include/SDL3_ttf/SDL_ttf.h"
 #include "SDL/include/SDL3/SDL.h"
 #include "Figury.h"
 #include <unistd.h>
@@ -7,6 +8,12 @@
 #include <iostream>
 #include "Window.h"
 #include <random>
+#include <string>
+#include <algorithm>
+#include <sstream>
+#include <fstream>
+#include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -17,6 +24,7 @@ constexpr int kScreenHeight{512};
 //Inicjalizacja okna SDl
 SDL_Window *gWindow = nullptr;
 SDL_Renderer *gRenderer = nullptr;
+TTF_Font* gFont{ nullptr };
 
 //Inicjalizacja tekstur
 SDL_Texture *whiteTileTexture = nullptr;
@@ -53,7 +61,6 @@ vector<vector<Piece> > Pieces = {
 //Funkja inicjalizująca SDL i tworząca okno
 bool init() {
     bool success{true};
-
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         SDL_Log("SDL could not initialize! SDL error: %s\n", SDL_GetError());
         success = false;
@@ -64,6 +71,21 @@ bool init() {
         }
     }
     return success;
+}
+SDL_Texture* createTextTexture(SDL_Renderer* renderer, TTF_Font* font, const std::string& text,int leng, SDL_Color color) {
+    SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(),leng, color);
+    if (!surface) {
+        SDL_Log("Failed to create text surface: %s", SDL_GetError());
+        return nullptr;
+    }
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (!texture) {
+        SDL_Log("Failed to create texture from surface: %s", SDL_GetError());
+    }
+
+    SDL_DestroySurface(surface); // We no longer need the surface
+    return texture;
 }
 //Załadowanie tekstur
 
@@ -380,10 +402,12 @@ int evaluate(vector<vector<Piece> > &chessPieces) {
     }
     return boardValue;
 }
+int leaf = 0;
 //algorytm minmax z alpha beta pruning
 int negaMax(int color, int alpha, int beta, int depthLeft, vector<vector<Piece> > &chessPieces,vector<vector<Tile> > &tiles) {
     //jeżeli osiągnięto maksymalną głębokość lub ruch prowadzi do szach mata, to zwrócenie wartości planszy
     if (depthLeft == 0) {
+        leaf++;
         return evaluate(chessPieces);
     }
     vector<Ruch> moves = GenerateLegalMoves(color, chessPieces, tiles);
@@ -405,23 +429,11 @@ int negaMax(int color, int alpha, int beta, int depthLeft, vector<vector<Piece> 
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].pieceOnTile = captured;
             tiles[captured->BoardPosition.second][captured->BoardPosition.first].hasPiece = true;
         }
-        //jeżeli potencjał ruchu jest większy niż beta, to zwrócenie beta, ponieważ jest to ruch gorszy od najlepszego ruchu przeciwnika ergo. przeciwnik go nie wybierze
-        if (score >= beta) {
-            return beta;
-        }
-        //jeżeli potencjał ruchu jest większy niż alpha, to aktualizacja alpha
-        if (score > alpha) {
-            alpha = score;
-        }
-
     }
-    return alpha;
 }
 
 //Sztuczna inteligencja dla czarnykh figur
-void SI(vector<vector<Tile> > &tiles, vector<vector<Piece> > &chessPieces) {
-    //maksymalna głębokość przeszukiwania drzewa ruchów
-    const int MAX_DEPTH = 3;
+Ruch SI(int DEPTH, vector<vector<Tile> > &tiles, vector<vector<Piece> > &chessPieces) {
     //wygenerowanie wszystkich możliwych ruchów z obecnej pozycji
     vector<Ruch> possibleMoves = GenerateLegalMoves(1, chessPieces, tiles);
     //inicjalizacja najlepszego znalezionego ruchu i
@@ -434,7 +446,7 @@ void SI(vector<vector<Tile> > &tiles, vector<vector<Piece> > &chessPieces) {
         //wykonanie ruchu
         Move(m.pieceMoved, m.from, m.to, tiles);
         //sprawdzenie jaki potencjał ma ruch
-        int score = -negaMax(0, -9999999, 9999999, MAX_DEPTH - 1, chessPieces, tiles);
+        int score = -negaMax(0, -9999999, 9999999, DEPTH - 1, chessPieces, tiles);
         //cofnięcie ruchu
         Move(m.pieceMoved, m.to, m.from, tiles);
         if (captured) {
@@ -457,12 +469,9 @@ void SI(vector<vector<Tile> > &tiles, vector<vector<Piece> > &chessPieces) {
     mt19937 gen(rd());
     uniform_int_distribution<> dst(0, bestMovesList.size() - 1);
     Ruch chosenMove = bestMovesList[dst(gen)];
-    cout << "AI found " << bestMovesList.size() << " equally good move(s) with a score of: " << bestScore*-1 << endl;
-    cout << "Chosen move: " << chosenMove.pieceMoved->figure << " from "
-            << chosenMove.from.first << "," << chosenMove.from.second << " to "
-            << chosenMove.to.first << "," << chosenMove.to.second << endl;
     //wykonanie wybranego ruchu
     move_black(chosenMove, tiles, chessPieces);
+    return chosenMove;
 }
 
 //Sprawdzenie czy jest szach mat lub pat
@@ -489,20 +498,85 @@ bool isStalemate(int color, vector<vector<Piece> > &chessPieces, vector<vector<T
     vector<Ruch> legalMoves = GenerateLegalMoves(color, chessPieces, Tiles);
     return legalMoves.empty();
 }
-
-
-
-int main(int argc, char *args[]) {
-    //inicjalizacja SDL i załadowanie mediów
-    if (!init()) return 1;
-    if (!loadMedia(Board, Pieces)) return 2;
-
+void FEN(string &text,vector<vector<Tile>> &tiless, vector<vector<Piece>> &piecee) {
+    map<char, int> fenToValue = {
+        {'P', 100}, {'N', 350}, {'B', 351}, {'R', 500}, {'Q', 900}, {'K', 999},
+        {'p', -100}, {'n', -350}, {'b', -351}, {'r', -500}, {'q', -900}, {'k', -999}
+    };
+    vector<string> rows;
+    string boardPart;
+    string row="";
+    for (auto& pieceRow : piecee) {
+        for (auto& piece : pieceRow) {
+            piece.BoardPosition = {8, 8};
+            piece.isCaptured = true;
+            piece.hasMoved = false;
+        }
+    }
+    for (auto& tileRow : tiless) {
+        for (auto& tile : tileRow) {
+            tile.pieceOnTile = nullptr;
+            tile.hasPiece = false;
+            tile.isWhite = false;
+        }
+    }
+    for (char ch : text) {
+        if (ch == '/') {
+            rows.push_back(row);
+            row.clear();
+        } else if (isdigit(ch)) {
+            row.append(ch - '0', '0');
+        } else {
+            row += ch;
+        }
+        if (ch== ' ') {
+            rows.push_back(row);
+            break;
+        }
+    }
+    for(int i = 0; i<8;i++) {
+     for(int j = 0; j<8;j++) {
+         char p = rows[i][j];
+         if (p==0) continue;
+         int val = fenToValue[p];
+         for (auto& pieceRow : piecee) {
+             for (auto& piece : pieceRow) {
+                 if (piece.figure == val && !piece.hasMoved) {
+                        piece.BoardPosition = {j, i};
+                        piece.isCaptured = false;
+                        piece.hasMoved = true;
+                        tiless[i][j].pieceOnTile = &piece;
+                        tiless[i][j].hasPiece = true;
+                        tiless[i][j].isWhite = (val > 0);
+                        break;
+                 }
+             }
+         }
+     }
+    }
+}
+void count_leaves(int depth,string fen) {
+    FEN(fen, Board, Pieces);
+    cout << "--- Liście na głębokości " << depth << " ---" << endl;
+    leaf = 0;
+    SI(depth,Board, Pieces);
+    cout << "Głębokość: " << depth << " | ilość liści: " << leaf << endl;
+    cout << "---------------------------------" << endl;
+}
+void game(int depth) {
     //inicjalizacja zmiennych końca gry
     bool quit{false};
     bool gameOver{false};
     //obsługa zdarzeń SDL
     SDL_Event e;
     SDL_zero(e);
+    string fen = "r3r2k/8/8/4r3/8/8/8/R3K2R w KQkq - 0 1";
+    FEN(fen, Board, Pieces);
+    for (auto& pieceRow : Pieces) {
+        for (auto& piece : pieceRow) {
+            piece.hasMoved = false;
+        }
+    }
 
     while (!quit) {
         //dopóki gra trwa, sprawdzanie zdarzeń
@@ -538,22 +612,25 @@ int main(int argc, char *args[]) {
                                 //jeżeli wykonujemy roszadę, to wykonanie roszad
                                 bool isCastlingAttempt = (selectedPiece->figure == 999 && targetPiece && targetPiece->figure == 500 && targetPiece->White == selectedPiece->White);
                                 if (isCastlingAttempt) {
-                                    if (targetPiece->BoardPosition.first == 7) {
+                                    if (targetPiece->BoardPosition.first == 7&& !isSquareAttacked(selectedPiece->BoardPosition.first,selectedPiece->BoardPosition.second,false,Board,Pieces)&&!isSquareAttacked(selectedPiece->BoardPosition.first+1,selectedPiece->BoardPosition.second,false,Board,Pieces)&&!isSquareAttacked(selectedPiece->BoardPosition.first+2,selectedPiece->BoardPosition.second,false,Board,Pieces)) {
                                         Move(selectedPiece, originalPos, {6, originalPos.second}, Board);
                                         Move(targetPiece, targetPiece->BoardPosition, {5, originalPos.second},
                                              Board);
                                         selectedPiece->hasMoved = true;
                                         targetPiece->hasMoved = true;
-                                    } else if (targetPiece->BoardPosition.first == 0) {
+                                        isWhiteTurn = false;
+                                        selectedPiece = nullptr;
+
+                                    } else if (targetPiece->BoardPosition.first == 0&& !isSquareAttacked(selectedPiece->BoardPosition.first,selectedPiece->BoardPosition.second,false,Board,Pieces)&&!isSquareAttacked(selectedPiece->BoardPosition.first-1,selectedPiece->BoardPosition.second,false,Board,Pieces)&&!isSquareAttacked(selectedPiece->BoardPosition.first-2,selectedPiece->BoardPosition.second,false,Board,Pieces)) {
                                         Move(selectedPiece, originalPos, {2, originalPos.second}, Board);
                                         Move(targetPiece, targetPiece->BoardPosition, {3, originalPos.second},
                                              Board);
                                         selectedPiece->hasMoved = true;
                                         targetPiece->hasMoved = true;
+                                        isWhiteTurn = false;
+                                        selectedPiece = nullptr;
                                     }
 
-                                    isWhiteTurn = false;
-                                    selectedPiece = nullptr;
                                 } else {
                                     //wykonanie ruchu i sprawdzenie czy nie zostawiamy króla w szachu
                                     if (targetPiece) { targetPiece->isCaptured = true; }
@@ -612,7 +689,7 @@ int main(int argc, char *args[]) {
                 }
                 //wykonanie ruchu przez algorytm sztucznej inteligencji
                 if (!gameOver) {
-                    SI(Board, Pieces);
+                    SI(depth,Board, Pieces);
                     if (isCheckmate(0, Pieces, Board)) {
                         cout << "CHECKMATE! Black wins!" << endl;
                         gameOver = true;
@@ -628,11 +705,183 @@ int main(int argc, char *args[]) {
         SDL_SetRenderDrawColor(gRenderer, 0x0, 0x0, 0x0, 0xFF);
         renderBoard(Board, Pieces);
         SDL_RenderPresent(gRenderer);
-        //jeżeli koniec gry, to wyświetlenie komunikatu i zakończenie programu
         if (gameOver) {
             SDL_Delay(9999);
             SDL_Quit();
-            return 0;
+            return;
         }
     }
+}
+void test(int depth,int runs_per_test ) {
+    map<string, string> fens_to_test = {
+        {"Starting", "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"},
+        {"Developed", "rn2kb1r/pp3ppp/2p1pn2/q3Nb2/2BP2P1/2N5/PPP2P1P/R1BQK2R b KQkq - 0 8"},
+        {"Middlegame", "1r3rk1/1pp2ppp/p7/2PPQ3/2n1P3/6P1/5PBP/3R2K1 b - - 0 26"},
+        {"Endgame", "b4r2/p3R1PP/1p5k/2p4P/1P1p2n1/8/P7/6K1 b - - 0 48"}
+    };
+    ofstream results_file("/home/userbrigh/CLionProjects/Szachy/szachy_test_depth_" + to_string(depth) + "_3.csv");
+    ofstream avg_file("/home/userbrigh/CLionProjects/Szachy/szachy_avg_depth_" + to_string(depth) + "_3.csv");
+    if (!results_file.is_open()) {
+        cerr << "Error: Could not open results file for writing." << endl;
+        return;
+    }
+    results_file << "Position,Depth,Run,ExecutionTime_ms\n";
+    for (const auto& fen_pair : fens_to_test) {
+        string position_name = fen_pair.first;
+        string fen_string = fen_pair.second;
+
+        cout << "\n--- Testing Position: " << position_name << " ---" << endl;
+        cout << "  Testing Depth: " << depth << " (x" << runs_per_test << " runs)... " << flush;
+
+            vector<long long> run_times;
+            long long total_duration_ms = 0;
+
+            for (int run = 1; run <= runs_per_test; ++run) {
+                FEN(fen_string, Board, Pieces);
+                stringstream ss(fen_string);
+                string part;
+                ss >> part;
+                ss >> part;
+                isWhiteTurn = (part == "w");
+                auto start_time = chrono::high_resolution_clock::now();
+                Ruch ruch = SI(depth, Board, Pieces);
+                auto end_time = chrono::high_resolution_clock::now();
+                auto duration = chrono::duration_cast<chrono::milliseconds>(end_time - start_time).count();
+                run_times.push_back(duration);
+                total_duration_ms += duration;
+                results_file << position_name << "," << depth << "," << run << "," << duration<<"," << ruch.pieceMoved->figure<<","<<ruch.from.first<<","<<ruch.from.second<<","<<ruch.to.first<<","<<ruch.to.second<<","<<ruch.value<<"\n";
+                cout << "Run " << run << ": " << duration << " ms" << endl;
+                }
+            double average_time = static_cast<double>(total_duration_ms) / runs_per_test;
+            cout << "Done. Average Time: " << average_time << " ms" << endl;
+            avg_file<< position_name << "," << depth << ","<< average_time << endl;
+        }
+
+
+
+    results_file.close();
+    cout << "\nBenchmark complete. Results have been saved" << endl;
+    cout << "Press Enter to continue..." << endl;
+}
+int runMenu(SDL_Renderer* renderer) {
+    if (TTF_Init() == -1) {
+        SDL_Log("SDL_ttf could not initialize! TTF_Error: %s\n", SDL_GetError());
+        return 0;
+    }
+    TTF_Font* font = TTF_OpenFont("/home/userbrigh/CLionProjects/Szachy/Tekstury/Roboto-VariableFont_wdth,wght.ttf", 32);
+    if (!font) {
+        SDL_Log("Failed to load font! TTF_Error: %s\n", SDL_GetError());
+        return 0;
+    }
+    SDL_Color textColor = { 255, 255, 255, 255 };
+    SDL_Color buttonColor = { 25, 25, 25, 255 };
+    int currentDepth = 3;
+    bool menuRunning = true;
+    SDL_Event e;
+    SDL_Texture* titleTexture = createTextTexture(renderer, font, "Wybierz głębokość: ", 0, textColor);
+    SDL_Texture* recTexture = createTextTexture(renderer, font, "Rekomendowana 3 ", 0, textColor);
+    SDL_Texture* startTexture = createTextTexture(renderer, font, "Start", 0, textColor);
+    SDL_Texture* plusTexture = createTextTexture(renderer, font, "+", 0, textColor);
+    SDL_Texture* minusTexture = createTextTexture(renderer, font, "-", 0, textColor);
+    SDL_Texture* depthValueTexture = createTextTexture(renderer, font, to_string(currentDepth), 0, textColor);
+    SDL_Texture* testTexture = createTextTexture(renderer, font, "Testy złożoności", 0, textColor);
+    SDL_FRect titleRect = { (float)kScreenWidth / 2 - 150, 50.0f, 300.0f, 50.0f };
+    SDL_FRect recRect = { (float)kScreenWidth / 2 - 50, 150.0f, 100.0f, 25.0f };
+    SDL_FRect minusRect = { (float)kScreenWidth / 2 - 100, 225.0f, 30.0f, 30.0f };
+    SDL_FRect depthRect = { (float)kScreenWidth / 2 - 25, 200.0f, 50.0f, 70.0f };
+    SDL_FRect plusRect = { (float)kScreenWidth / 2 + 50, 225.0f, 30.0f, 30.0f };
+    SDL_FRect startRect = { (float)kScreenWidth / 2 - 50, 350.0f, 100.0f, 40.0f };
+    SDL_FRect testRect = { (float)kScreenWidth / 2 + 40, 450.0f, 100.0f, 40.0f };
+    while (menuRunning) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_EVENT_QUIT) {
+                currentDepth = 0;
+                menuRunning = false;
+            }
+            if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+                SDL_FPoint mousePoint = { e.button.x, e.button.y };
+
+               if (SDL_PointInRectFloat(&mousePoint, &minusRect) && currentDepth > 1) {
+                    currentDepth--;
+                   currentDepth--;
+                    SDL_DestroyTexture(depthValueTexture);
+                    depthValueTexture = createTextTexture(renderer, font, to_string(currentDepth), 0, textColor);
+                } else if (SDL_PointInRectFloat(&mousePoint, &plusRect) && currentDepth < 7) {
+                    currentDepth++;
+                    currentDepth++;
+                    SDL_DestroyTexture(depthValueTexture);
+                    depthValueTexture = createTextTexture(renderer, font, to_string(currentDepth), 0, textColor);
+                } else if (SDL_PointInRectFloat(&mousePoint, &startRect)) {
+                    menuRunning = false;
+                }
+                else if (SDL_PointInRectFloat(&mousePoint, &testRect)) {
+                    currentDepth = -1;
+                    menuRunning = false;
+                }
+            }
+        }
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+        SDL_SetRenderDrawColor(renderer, buttonColor.r, buttonColor.g, buttonColor.b, buttonColor.a);
+        SDL_RenderFillRect(renderer, &minusRect);
+        SDL_RenderFillRect(renderer, &plusRect);
+        SDL_RenderFillRect(renderer, &startRect);
+        SDL_RenderFillRect(renderer, &testRect);
+        SDL_RenderTexture(renderer, recTexture, nullptr, &recRect);
+        SDL_RenderTexture(renderer, testTexture, nullptr, &testRect);
+        SDL_RenderTexture(renderer, titleTexture, nullptr, &titleRect);
+        SDL_RenderTexture(renderer, minusTexture, nullptr, &minusRect);
+        SDL_RenderTexture(renderer, plusTexture, nullptr, &plusRect);
+        SDL_RenderTexture(renderer, startTexture, nullptr, &startRect);
+        SDL_RenderTexture(renderer, depthValueTexture, nullptr, &depthRect);
+        SDL_RenderPresent(renderer);
+    }
+    SDL_DestroyTexture(titleTexture);
+    SDL_DestroyTexture(startTexture);
+    SDL_DestroyTexture(plusTexture);
+    SDL_DestroyTexture(minusTexture);
+    SDL_DestroyTexture(depthValueTexture);
+    TTF_CloseFont(font);
+    font = nullptr;
+    return currentDepth;
+}void close() {
+    SDL_DestroyTexture(whiteTileTexture);
+    SDL_DestroyTexture(blackTileTexture);
+    SDL_DestroyTexture(whiteHighlightTexture);
+    SDL_DestroyTexture(blackHighlightTexture);
+    whiteTileTexture = nullptr;
+    blackTileTexture = nullptr;
+    whiteHighlightTexture = nullptr;
+    blackHighlightTexture = nullptr;
+    SDL_DestroyRenderer(gRenderer);
+    SDL_DestroyWindow(gWindow);
+    gRenderer = nullptr;
+    gWindow = nullptr;
+    TTF_Quit();
+    SDL_Quit();
+}
+int main(int argc, char *args[]) {
+    if (!init()) {
+        SDL_Log("Failed to initialize SDL.\n");
+        return 1;
+    }
+    int menuChoice = runMenu(gRenderer);
+    if (menuChoice > 0) {
+        int chosenDepth = menuChoice;
+        SDL_HideWindow(gWindow);
+        if (!loadMedia(Board, Pieces)) {
+            SDL_Log("Failed to load media!\n");
+        } else {
+            SDL_ShowWindow(gWindow);
+            game(chosenDepth);
+        }
+    } else if (menuChoice == -1) {
+        SDL_HideWindow(gWindow);
+        cout << "TESTY" << endl;
+        test(1, 10);
+        test(3,10);
+        test(5,5);
+    }
+    close();
+    return 0;
 }
